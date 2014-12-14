@@ -17,13 +17,13 @@ void putPixel(unsigned short x, unsigned short y, char color) {
     Plot a pixel at the specified offset in video memory
 */
 void putPixelOfs(short offset, char color) {
-    asm("mov bx, [bp + 4]\n"
+    asm("mov di, [bp + 4]\n"
         "mov ax, [bp + 6]\n"
         "mov cx, 0xA000\n"
-        "push ds\n"
-        "mov ds, cx\n"
-        "mov [ds:bx], al\n"
-        "pop ds");
+        "push es\n"
+        "mov es, cx\n"
+        "mov [es:di], al\n"
+        "pop es");
 }
 
 /*
