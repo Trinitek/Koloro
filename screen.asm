@@ -1,6 +1,5 @@
 bits 16
 
-org 0x100
 ; glb putPixel : (
 ; prm     x : unsigned
 ; prm     y : unsigned
