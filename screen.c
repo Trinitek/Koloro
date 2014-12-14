@@ -24,6 +24,8 @@ void main(void) {
     
     putPixel(0,0,8);
     
+    waitForKey();
+    
     return;
 }
 

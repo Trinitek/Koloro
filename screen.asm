@@ -1,12 +1,47 @@
 bits 16
 
 org 0x100
-; glb main : (void) void
-_main:
+; glb getKey : (void) char
+_getKey:
 	push	bp
 	mov	bp, sp
 	jmp	L2
 L1:
+mov ah, 0x10
+int 0x16
+
+L3:
+	leave
+	ret
+L2:
+	jmp	L1
+; glb waitForKey : (void) void
+_waitForKey:
+	push	bp
+	mov	bp, sp
+	jmp	L6
+L5:
+; while
+; RPN'ized expression: "( getKey ) 0 == "
+; Expanded expression: " getKey ()0 0 == "
+L9:
+; Fused expression:    "( getKey )0 == ax 0 IF! "
+	call	_getKey
+	cmp	ax, 0
+	jne	L10
+	jmp	L9
+L10:
+L7:
+	leave
+	ret
+L6:
+	jmp	L5
+; glb main : (void) void
+_main:
+	push	bp
+	mov	bp, sp
+	jmp	L12
+L11:
 ; RPN'ized expression: "( 19 setMode ) "
 ; Expanded expression: " 19  setMode ()2 "
 ; Fused expression:    "( 19 , setMode )2 "
@@ -21,15 +56,19 @@ L1:
 	push	0
 	call	_putPixel
 	sub	sp, -6
+; RPN'ized expression: "( waitForKey ) "
+; Expanded expression: " waitForKey ()0 "
+; Fused expression:    "( waitForKey )0 "
+	call	_waitForKey
 ; return
-	jmp	L3
+	jmp	L13
 ; Fused expression:    "0 "
 	mov	ax, 0
-L3:
+L13:
 	leave
 	ret
-L2:
-	jmp	L1
+L12:
+	jmp	L11
 ; glb putPixel : (
 ; prm     x : unsigned
 ; prm     y : unsigned
@@ -38,8 +77,8 @@ L2:
 _putPixel:
 	push	bp
 	mov	bp, sp
-	jmp	L6
-L5:
+	jmp	L16
+L15:
 ; loc     x : (@4): unsigned
 ; loc     y : (@6): unsigned
 ; loc     color : (@8): char
@@ -55,11 +94,11 @@ L5:
 	push	ax
 	call	_putPixelOfs
 	sub	sp, -4
-L7:
+L17:
 	leave
 	ret
-L6:
-	jmp	L5
+L16:
+	jmp	L15
 ; glb putPixelOfs : (
 ; prm     offset : int
 ; prm     color : char
@@ -67,8 +106,8 @@ L6:
 _putPixelOfs:
 	push	bp
 	mov	bp, sp
-	jmp	L10
-L9:
+	jmp	L20
+L19:
 ; loc     offset : (@4): int
 ; loc     color : (@6): char
 mov bx, [bp + 4]
@@ -77,31 +116,31 @@ mov cx, 0xA000
 mov ds, cx
 mov [ds:bx], al
 
-L11:
+L21:
 	leave
 	ret
-L10:
-	jmp	L9
+L20:
+	jmp	L19
 ; glb setMode : (
 ; prm     mode : char
 ;     ) void
 _setMode:
 	push	bp
 	mov	bp, sp
-	jmp	L14
-L13:
+	jmp	L24
+L23:
 ; loc     mode : (@4): char
 mov ax, [bp + 4]
 mov ah, 0
 int 0x10
-L15:
+L25:
 	leave
 	ret
-L14:
-	jmp	L13
+L24:
+	jmp	L23
 
 ; Syntax/declaration table/stack:
-; Bytes used: 312/20736
+; Bytes used: 408/20736
 
 
 ; Macro table:
@@ -112,8 +151,10 @@ L14:
 
 
 ; Identifier table:
-; Ident main
+; Ident getKey
 ; Ident <something>
+; Ident waitForKey
+; Ident main
 ; Ident putPixel
 ; Ident x
 ; Ident y
@@ -122,7 +163,7 @@ L14:
 ; Ident offset
 ; Ident setMode
 ; Ident mode
-; Bytes used: 78/4752
+; Bytes used: 98/4752
 
-; Next label number: 17
+; Next label number: 27
 ; Compilation succeeded.
