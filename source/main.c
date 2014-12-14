@@ -10,6 +10,10 @@ void main(void) {
     short x = 0;
     short y = 0;
     
+    putPixel(0, 0, 15);
+    putPixel(320-1, 200-1, 15);
+    waitForKey();
+    
     for(x; x < 50; x++) {
         for(y; y < 50; y++) {
             putPixel(x, y, 10);

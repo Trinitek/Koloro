@@ -10,7 +10,7 @@
     Plot a pixel at the specified X and Y coordinate
 */
 void putPixel(unsigned short x, unsigned short y, char color) {
-    putPixelOfs(y * 200 + x, color);
+    putPixelOfs(y * 320 + x, color);
 }
 
 /*
