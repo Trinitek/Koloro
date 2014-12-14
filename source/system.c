@@ -15,3 +15,4 @@ void outw(char port, short data) {
     asm("mov dx, [bp + 4]\n"
         "mov ax, [bp + 6]\n"
         "out dx, ax");
+}
