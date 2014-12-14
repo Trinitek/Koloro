@@ -1,12 +1,14 @@
 
 @rem Generate asm files from C sources
-smlrc -flat16 -label 100 screen.c screen.asm
-smlrc -flat16 -label 200 input.c input.asm
+smlrc -flat16 -label 100 source\screen.c asmgen\screen.asm
+smlrc -flat16 -label 200 source\input.c asmgen\input.asm
 
-smlrc -flat16 main.c main.asm
+smlrc -flat16 -I source source\main.c asmgen\main.asm
 
 @rem Assemble main file into binary
-nasm -f bin -o koloro.bin main.asm
+@cd asmgen
+nasm -f bin -o ..\koloro.bin main.asm
+@cd ..
 
 @rem Copy binary to virtual floppy disk
 imdisk -a -f mikeos.img -m K:
