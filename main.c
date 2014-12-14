@@ -7,10 +7,11 @@ asm("org 32768");
 void main(void) {
     setMode(0x13);
     
-    putPixel(0,0,8);
+    putPixel(0,0,12);
     
     waitForKey();
     
+    setMode(0x03);
     return;
 }
 

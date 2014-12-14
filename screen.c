@@ -13,8 +13,10 @@ void putPixelOfs(short offset, char color) {
     asm("mov bx, [bp + 4]\n"
         "mov ax, [bp + 6]\n"
         "mov cx, 0xA000\n"
+        "push ds\n"
         "mov ds, cx\n"
-        "mov [ds:bx], al\n");
+        "mov [ds:bx], al\n"
+        "pop ds");
 }
 
 /*

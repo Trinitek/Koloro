@@ -27,10 +27,10 @@ L1:
 	push	19
 	call	_setMode
 	sub	sp, -2
-; RPN'ized expression: "( 8 , 0 , 0 putPixel ) "
-; Expanded expression: " 8  0  0  putPixel ()6 "
-; Fused expression:    "( 8 , 0 , 0 , putPixel )6 "
-	push	8
+; RPN'ized expression: "( 12 , 0 , 0 putPixel ) "
+; Expanded expression: " 12  0  0  putPixel ()6 "
+; Fused expression:    "( 12 , 0 , 0 , putPixel )6 "
+	push	12
 	push	0
 	push	0
 	call	_putPixel
@@ -39,6 +39,12 @@ L1:
 ; Expanded expression: " waitForKey ()0 "
 ; Fused expression:    "( waitForKey )0 "
 	call	_waitForKey
+; RPN'ized expression: "( 3 setMode ) "
+; Expanded expression: " 3  setMode ()2 "
+; Fused expression:    "( 3 , setMode )2 "
+	push	3
+	call	_setMode
+	sub	sp, -2
 ; return
 	jmp	L3
 ; Fused expression:    "0 "

@@ -44,9 +44,10 @@ L104:
 mov bx, [bp + 4]
 mov ax, [bp + 6]
 mov cx, 0xA000
+push ds
 mov ds, cx
 mov [ds:bx], al
-
+pop ds
 L106:
 	leave
 	ret
