@@ -1,4 +1,5 @@
 
+// Code starting point; 0x100 means this binary will be a valid MS-DOS *.COM executable
 asm("org 0x100");
 
 #include "input.h"
