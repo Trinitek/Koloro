@@ -6,4 +6,9 @@ smlrc -flat16 -label 200 input.c input.asm
 smlrc -flat16 main.c main.asm
 
 @rem Assemble main file into binary
-nasm -o koloro.com main.asm
+nasm -o koloro.bin main.asm
+
+@rem Copy binary to virtual floppy disk
+imdisk -a -f mikeos.img -m K:
+copy koloro.bin K:\
+imdisk -D -m K:

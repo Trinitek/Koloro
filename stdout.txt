@@ -1,0 +1,9 @@
+DOSBox version 0.74
+Copyright 2002-2010 DOSBox Team, published under GNU GPL.
+---
+CONFIG:Loading primary settings from config file C:\Users\Blake Burgess\AppData\Local\DOSBox\dosbox-0.74.conf
+MIDI:Opened device:win32
+One joystick reported, initializing with 4axis
+Using joystick Razer Nostromo with 6 axes, 24 buttons and 1 hat(s)
+Loaded disk 0 from swaplist position 0 - "mikeos.img"
+Loaded disk 1 from swaplist position 0 - "mikeos.img"

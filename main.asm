@@ -1,6 +1,6 @@
 bits 16
 
-org 0x100
+org 32768
 ; glb getKey : (void) char
 ; glb waitForKey : (void) void
 ; glb putPixel : (
