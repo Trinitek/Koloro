@@ -1,7 +1,7 @@
 
 @rem Generate asm files from C sources
-smlrc -flat16 -label 100 source\screen.c asmgen\screen.asm
-smlrc -flat16 -label 200 source\input.c asmgen\input.asm
+smlrc -flat16 -I source -label 100 source\screen.c asmgen\screen.asm
+smlrc -flat16 -I source -label 200 source\input.c asmgen\input.asm
 
 smlrc -flat16 -I source source\main.c asmgen\main.asm
 
