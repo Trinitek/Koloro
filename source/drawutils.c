@@ -1,3 +1,5 @@
+#include screen.h;
+
 /*
     Draws the outline of a rectangle to the screen.
     */
@@ -41,5 +43,5 @@ void drawLine(short x1, short y1, short x2, short y2) {
     Function that draws a pixel to the image being worked on.
     */
 void setPixel(short x, short y, char color) {
-    // TODO: Access current layer and set pixel.
+    putPixel(x, y, color);
 }
