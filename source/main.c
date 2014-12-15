@@ -42,6 +42,11 @@ void main(void) {
     // Set the video mode to 16-color 80x25 text
     setMode(0x03);
     
+    // MikeOS uses a special attribute setting, where text blinking is disabled
+    asm("mov ax, 0x1003\n"
+        "mov bx, 0\n"
+        "int 0x10");
+    
     // Return to the operating system
     return;
 }
