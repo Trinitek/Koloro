@@ -54,9 +54,6 @@ void main(void) {
 asm("%include 'input.asm'");
 asm("%include 'screen.asm'");
 asm("%include 'system.asm'");
-<<<<<<< HEAD
+asm("%include 'drawutils.asm'");
 
 asm("%include '..\source\mikedev.inc'");
-=======
-asm("%include 'drawutils.asm'");
->>>>>>> 1e162019807ca8d06ed5335d65ebf88a62b40a47
