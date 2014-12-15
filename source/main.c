@@ -55,5 +55,6 @@ asm("%include 'input.asm'");
 asm("%include 'screen.asm'");
 asm("%include 'system.asm'");
 asm("%include 'drawutils.asm'");
+asm("%include 'file.asm'");
 
 asm("%include '..\source\mikedev.inc'");
