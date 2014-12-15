@@ -1,11 +1,14 @@
-#include screen.h;
+
+#include "screen.h"
 
 /*
     Draws the outline of a rectangle to the screen.
     */
 void drawRectangle(short x, short y, short width, short height, char c) {
-        for (int i = x; i < width; i++) {
-            for (int j = y; j < height; j++) {
+        int i;
+        int j;
+        for (i = x; i < width; i++) {
+            for (j = y; j < height; j++) {
                 if(i != x && i != x + width) {
                     if(j != y && j != y + height) {
                         setPixel(x, y, c);
@@ -19,8 +22,10 @@ void drawRectangle(short x, short y, short width, short height, char c) {
     Draws a rectangle with a filled center.
  */
 void fillRectangle(short x, short y, short width, short height, char c) {
-    for (int i = x; i < width; i++) {
-        for (int j = y; j < height; j++) {
+    int i;
+    int j;
+    for (i = x; i < width; i++) {
+        for (j = y; j < height; j++) {
             setPixel(x, y, c);
         }
     }
@@ -33,7 +38,8 @@ void drawLine(short x1, short y1, short x2, short y2) {
     int y = y2 - y1;
     int x = x2 - x1;
 
-    for (int i = x1; i < x2; i++) {
+    int i;
+    for (i = x1; i < x2; i++) {
         int yAtPoint = i * y / x + y1;
         setPixel(i, yAtPoint);
     }

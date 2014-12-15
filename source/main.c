@@ -3,6 +3,7 @@ asm("org 32768");
 
 #include "input.h"
 #include "screen.h"
+#include "file.h"
 
 void main(void) {
     // Set the video mode to VGA 256-color graphics
@@ -39,6 +40,11 @@ void main(void) {
     setPaletteRegister(10, 0, 0, 255);
     waitForKey();
     
+    // Write an array to a file
+    char helloFilename[] = "hello.txt\0";
+    char hello[] = "Hello world!\0";
+    os_writeFile(&helloFilename, &hello, 13);
+    
     // Set the video mode to 16-color 80x25 text
     setScreenMode(0x03);
     
@@ -57,4 +63,4 @@ asm("%include 'system.asm'");
 asm("%include 'drawutils.asm'");
 asm("%include 'file.asm'");
 
-asm("%include '..\source\mikedev.inc'");
+asm("%include '../source/mikedev.inc'");
