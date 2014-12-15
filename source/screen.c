@@ -10,20 +10,7 @@
     Plot a pixel at the specified X and Y coordinate
 */
 void putPixel(unsigned short x, unsigned short y, char color) {
-    putPixelOfs(y * 320 + x, color);
-}
-
-/*
-    Plot a pixel at the specified offset in video memory
-*/
-void putPixelOfs(short offset, char color) {
-    asm("mov di, [bp + 4]\n"
-        "mov ax, [bp + 6]\n"
-        "mov cx, 0xA000\n"
-        "push es\n"
-        "mov es, cx\n"
-        "mov [es:di], al\n"
-        "pop es");
+    mempokeb(0xA000, y * 320 + x, color);
 }
 
 /*
