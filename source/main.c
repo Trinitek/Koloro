@@ -6,7 +6,7 @@ asm("org 32768");
 
 void main(void) {
     // Set the video mode to VGA 256-color graphics
-    setMode(0x13);
+    setScreenMode(0x13);
     
     // Put pixels at all four corners of the screen
     putPixel(0, 0, 15);         // top left
@@ -40,7 +40,7 @@ void main(void) {
     waitForKey();
     
     // Set the video mode to 16-color 80x25 text
-    setMode(0x03);
+    setScreenMode(0x03);
     
     // MikeOS uses a special attribute setting, where text blinking is disabled
     asm("mov ax, 0x1003\n"

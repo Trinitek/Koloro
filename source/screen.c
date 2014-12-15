@@ -33,7 +33,7 @@ void putPixelOfs(short offset, char color) {
     > 0x03 - 16-color textmode, DOSBox default
     > 0x13 - 256-color VGA graphics, linear memory map
 */
-void setMode(char mode) {
+void setScreenMode(char mode) {
     asm("mov ax, [bp + 4]\n"
         "mov ah, 0\n"
         "int 0x10");
