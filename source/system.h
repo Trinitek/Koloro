@@ -1,4 +1,6 @@
 
+#define VIDEO_SEG       0xA000
+
 void outb(char port, char data);
 void outw(char port, short data);
 void mempokeb(short segment, short offset, char data);

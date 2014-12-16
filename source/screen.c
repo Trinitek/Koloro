@@ -10,7 +10,7 @@
     Plot a pixel at the specified X and Y coordinate
 */
 void putPixel(unsigned short x, unsigned short y, char color) {
-    mempokeb(0xA000, y * 320 + x, color);
+    mempokeb(VIDEO_SEG, y * 320 + x, color);
 }
 
 /*
