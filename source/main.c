@@ -4,6 +4,7 @@ asm("org 32768");
 #include "input.h"
 #include "screen.h"
 #include "file.h"
+#include "draw.h"
 
 void main(void) {
     // Set the video mode to VGA 256-color graphics
@@ -19,11 +20,12 @@ void main(void) {
     // Fill a 50x50 box with one color
     short x;
     short y;
-    for(x = 0; x < 50; x++) {
+    /*for(x = 0; x < 50; x++) {
         for(y = 0; y < 50; y++) {
             putPixel(x, y, 10);
         }
-    }
+    }*/
+    fillRectangle(0, 0, 50, 50, 10);
     waitForKey();
     
     // Cycle through some different colors
@@ -72,7 +74,7 @@ void main(void) {
 asm("%include 'input.asm'");
 asm("%include 'screen.asm'");
 asm("%include 'system.asm'");
-asm("%include 'drawutils.asm'");
+asm("%include 'draw.asm'");
 asm("%include 'file.asm'");
 
 asm("%include '../source/mikedev.inc'");
