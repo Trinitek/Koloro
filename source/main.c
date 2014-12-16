@@ -33,6 +33,8 @@ void main(void) {
     waitForKey();
     setPaletteRegister(10, 128, 128, 255);
     waitForKey();
+    setPaletteRegister(10, 0, 127, 255);    // Pakaku's favorite color
+    waitForKey();
     setPaletteRegister(10, 255, 0, 0);
     waitForKey();
     setPaletteRegister(10, 0, 255, 0);
