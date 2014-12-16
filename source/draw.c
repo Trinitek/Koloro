@@ -34,14 +34,14 @@ void fillRectangle(short x, short y, short width, short height, char c) {
 /*
     Draw a line from point (x1, y1) to point (x2, y2)
     */
-void drawLine(short x1, short y1, short x2, short y2) {
+void drawLine(short x1, short y1, short x2, short y2, char c) {
     int y = y2 - y1;
     int x = x2 - x1;
 
     int i;
     for (i = x1; i < x2; i++) {
         int yAtPoint = i * y / x + y1;
-        setPixel(i, yAtPoint);
+        setPixel(i, yAtPoint, c);
     }
 }
 
