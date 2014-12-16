@@ -52,3 +52,43 @@ void mempokew(short segment, short offset, short data) {
         "stosw\n"
         "pop es");
 }
+
+/*
+    Read a byte from the specified memory location
+    
+    @param
+        segment - source memory segment
+        offset - source memory offset
+    
+    @return
+        byte at that address
+*/
+char mempeekb(short segment, short offset) {
+    asm("push ds\n"
+        "mov ax, [bp + 4]\n"
+        "mov ds, ax\n"
+        "mov si, [bp + 6]\n"
+        "mov ax, [bp + 8]\n"
+        "lodsb\n"
+        "pop ds");
+}
+
+/*
+    Read a word from the specified memory location
+    
+    @param
+        segment - source memory segment
+        offset - source memory offset
+    
+    @return
+        word at that address
+*/
+short mempeekw(short segment, short offset) {
+    asm("push ds\n"
+        "mov ax, [bp + 4]\n"
+        "mov ds, ax\n"
+        "mov si, [bp + 6]\n"
+        "mov ax, [bp + 8]\n"
+        "lodsw\n"
+        "pop ds");
+}
