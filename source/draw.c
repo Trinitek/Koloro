@@ -56,6 +56,15 @@ void drawLine(short x1, short y1, short x2, short y2, char c) {
 }
 
 /*
+    Draws a single dot at this point.
+    Is a seperate function from setPixel() because this action will need to be
+    recorded for the undo function.
+   */
+void pencil(short x, short y, char color) {
+    setPixel(x, y, color);
+}
+
+/*
     Function that draws a pixel to the image being worked on.
     */
 void setPixel(short x, short y, char color) {
