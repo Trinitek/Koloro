@@ -1,5 +1,6 @@
 
 #include "screen.h"
+#include "math.h"
 
 /*
     Draws the outline of a rectangle to the screen.
@@ -56,6 +57,20 @@ void drawLine(short x1, short y1, short x2, short y2, char c) {
 }
 
 /*
+    Draws a circle with a center at (centerX, centerY) and a radius of radius.
+    */
+void drawCircle(short centerX, short centerY, short radius, char color) {
+    short angle = 0;
+
+    while(angle < 628) {
+        short xVal = centerX + (radius * cos(angle / 100));
+        short yVal = centerY + (radius * sin(angle / 100));
+        putPixel(xVal, yVal, color);
+        angle++;
+    }
+}
+
+/*
     Draws a single dot at this point.
     Is a seperate function from setPixel() because this action will need to be
     recorded for the undo function.
@@ -66,7 +81,15 @@ void pencil(short x, short y, char color) {
 
 /*
     Function that draws a pixel to the image being worked on.
+    Will mutate a value within the current layer.
     */
 void setPixel(short x, short y, char color) {
     putPixel(x, y, color);
+}
+
+/*
+    Sets the current value in the current layer as translucent.
+    */
+void erasePixel(short x, short y) {
+    // TODO: this
 }
