@@ -92,3 +92,31 @@ short mempeekw(short segment, short offset) {
         "lodsw\n"
         "pop ds");
 }
+
+/*
+    Copy a block of memory to another memory location
+    
+    @param
+        srcSeg - source memory segment
+        srcOfs - source memory offset
+        destSeg - destination memory segment
+        destOfs - destination memory offset
+        size - number of bytes to be copied
+*/
+void memcopy(short srcSeg, short srcOfs, short destSeg, short destOfs, short size) {
+    asm("push ds\n"
+        "push es\n");
+        
+    asm("mov ax, [bp + 4]\n"
+        "mov ds, ax\n"
+        "mov si, [bp + 6]\n"
+        "mov ax, [bp + 8]\n"
+        "mov es, ax\n"
+        "mov di, [bp + 10]\n"
+        "mov cx, [bp + 12]\n");
+        
+    asm("rep movsb");
+        
+    asm("pop es\n"
+        "pop ds");
+}
