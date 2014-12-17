@@ -50,12 +50,14 @@ void main(void) {
     os_writeFile(&helloFilename, &hello, 13);
     
     // Read a file to an array
-    char hello2[13];
+    /*char hello2[14];
     short helloSize = os_readFile(&helloFilename, &hello2);
     
     for (x = 0; x < helloSize; x++) {
         putPixel(x, 100, 14);
     }
+    
+    */
     
     waitForKey();
     
