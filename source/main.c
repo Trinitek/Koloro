@@ -17,32 +17,32 @@ void main(void) {
     putPixel(0, 200-1, 15);     // bottom left
     waitForKey();
     
-    // Fill a 50x50 box with one color
+    // Fill the screen with boxes
+    #define BOXW 80
+    #define BOXH 50
+    
+    char c = 16;
     short x;
     short y;
-    /*for(x = 0; x < 50; x++) {
-        for(y = 0; y < 50; y++) {
-            putPixel(x, y, 10);
+    for (x = 0; x <= 240; x += 80) {
+        for (y = 0; y <= 150; y += 50) {
+            fillRectangle(x, y, BOXW, BOXH, c);
+            c++;
         }
-    }*/
-    fillRectangle(0, 0, 50, 50, 10);
+    }
+    
     waitForKey();
     
     // Cycle through some different colors
-    setPaletteRegister(10, 255, 255, 0);
-    waitForKey();
-    setPaletteRegister(10, 0, 255, 255);
-    waitForKey();
-    setPaletteRegister(10, 128, 128, 255);
-    waitForKey();
-    setPaletteRegister(10, 0, 127, 255);    // Pakaku's favorite color
-    waitForKey();
-    setPaletteRegister(10, 255, 0, 0);
-    waitForKey();
-    setPaletteRegister(10, 0, 255, 0);
-    waitForKey();
-    setPaletteRegister(10, 0, 0, 255);
-    waitForKey();
+    setPaletteRegister(16, 255, 255, 0);
+    setPaletteRegister(17, 0, 255, 255);
+    setPaletteRegister(18, 128, 128, 255);
+    setPaletteRegister(19, 0, 127, 255);    // Pakaku's favorite color
+    setPaletteRegister(20, 255, 0, 0);
+    setPaletteRegister(21, 0, 255, 0);
+    setPaletteRegister(22, 0, 0, 255);
+    setPaletteRegister(23, 64, 64, 128);
+    setPaletteRegister(24, 64, 128, 64);
     
     // Write an array to a file
     char helloFilename[] = "hello.txt\0";
