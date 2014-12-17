@@ -1,3 +1,5 @@
 
-short sin(short x);
-short cos(short x);
+#include "fixed.h"
+
+fixed sin(fixed x);
+fixed cos(fixed x);

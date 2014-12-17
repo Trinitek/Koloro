@@ -1,5 +1,8 @@
 
+#ifndef _TYPEDEF_FIXED
+#define _TYPEDEF_FIXED
 typedef short fixed;
+#endif
 
 fixed getFixed(short whole, char decimal);
 short getWhole(fixed x);
