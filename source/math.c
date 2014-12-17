@@ -41,6 +41,34 @@ char getDecimal(fixed x) {
     return x % 100;
 }
 
+/*
+    Set the whole number portion of a fixed-type variable to the given value
+    
+    @param
+        x - fixed variable to modify
+        whole - new whole number
+    
+    @return
+        new fixed-type variable
+*/
+fixed setWhole(fixed x, short whole) {
+    return getFixed(whole, getDecimal(x));
+}
+
+/*
+    Set the decimal number portion of a fixed-type variable to the given value
+    
+    @param
+        x - fixed variable to modify
+        decimal - new decimal number
+    
+    @return
+        new fixed-type variable
+*/
+fixed setDecimal(fixed x, char decimal) {
+    return getFixed(getWhole(x), decimal);
+}
+
 short sin(short x) {
     asm("finit\n"       // initialize FPU
         "");
