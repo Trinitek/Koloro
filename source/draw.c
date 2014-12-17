@@ -25,8 +25,8 @@ void drawRectangle(short x, short y, short width, short height, char c) {
 void fillRectangle(short x, short y, short width, short height, char c) {
     int i;
     int j;
-    for (i = x; i < width; i++) {
-        for (j = y; j < height; j++) {
+    for (i = x; i < width + x; i++) {
+        for (j = y; j < height + y; j++) {
             setPixel(i, j, c);
         }
     }
