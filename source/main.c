@@ -77,5 +77,6 @@ asm("%include 'system.asm'");
 asm("%include 'draw.asm'");
 asm("%include 'file.asm'");
 asm("%include 'math.asm'");
+asm("%include 'fixed.asm'");
 
 asm("%include '../source/mikedev.inc'");

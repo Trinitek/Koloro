@@ -6,6 +6,7 @@ smlrc -flat16 -I source -label 300 source\system.c asmgen\system.asm
 smlrc -flat16 -I source -label 400 source\draw.c asmgen\draw.asm
 smlrc -flat16 -I source -label 500 source\file.c asmgen\file.asm
 smlrc -flat16 -I source -label 600 source\math.c asmgen\math.asm
+smlrc -flat16 -I source -label 700 source\fixed.c asmgen\fixed.asm
 
 smlrc -flat16 -I source source\main.c asmgen\main.asm
 
