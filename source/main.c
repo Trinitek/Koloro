@@ -61,6 +61,25 @@ void main(void) {
     
     waitForKey();
     
+    //tScreenMode(0x13);
+    //tPaletteRegister(0, 255, 255, 255);
+    setPaletteRegister(40, 0, 0, 0);
+    
+    putPixel(1, 1, 40);
+    putPixel(1, 2, 40);
+    putPixel(1, 3, 40);
+    putPixel(1, 4, 40);
+    putPixel(1, 5, 40);
+    putPixel(2, 3, 40);
+    putPixel(3, 2, 40);
+    putPixel(3, 4, 40);
+    putPixel(4, 4, 40);
+    putPixel(4, 1, 40);
+    putPixel(5, 1, 40);
+    putPixel(5, 5, 40);
+    
+    waitForKey();
+    
     // Set the video mode to 16-color 80x25 text
     setScreenMode(0x03);
     
