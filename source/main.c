@@ -1,6 +1,4 @@
 
-asm("org 32768");
-
 #include "input.h"
 #include "screen.h"
 #include "file.h"
@@ -45,9 +43,10 @@ void main(void) {
     setPaletteRegister(24, 64, 128, 64);
     
     // Write an array to a file
-    char helloFilename[] = "hello.txt\0";
+    /*char helloFilename[] = "hello.txt\0";
     char hello[] = "Hello world!\0";
     os_writeFile(&helloFilename, &hello, 13);
+    */
     
     // Read a file to an array
     /*char hello2[14];
@@ -89,16 +88,6 @@ void main(void) {
         "int 0x10");
     
     // Return to the operating system
-    return;
+    asm("leave \n"
+        "retf");
 }
-
-asm("%include 'input.asm'");
-asm("%include 'screen.asm'");
-asm("%include 'system.asm'");
-asm("%include 'draw.asm'");
-asm("%include 'file.asm'");
-asm("%include 'math.asm'");
-asm("%include 'fixed.asm'");
-//asm("%include 'state.asm'");
-
-asm("%include '../source/mikedev.inc'");

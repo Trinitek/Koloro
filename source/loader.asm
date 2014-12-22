@@ -12,7 +12,7 @@ start:
     xor di, di
     mov si, buffer
     
-    ; Copy!
+    ; Copy
     rep movsb
     
     ; Setup segment registers for program
@@ -20,8 +20,17 @@ start:
     mov fs, ax
     mov gs, ax
     
-    ; Far call!
-    call 0x2000:0
+    ; Far call
+    call 0x2000+4096:0
+    
+    ; Restore all segment registers before returning
+    mov ax, 0x2000
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    
+    ; Return to operating system
     ret
     
 buffer:
