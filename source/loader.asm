@@ -2,11 +2,15 @@
     org 32768
     
 start:
-    jmp .main
+    jmp .main                   ; 0
     
-    buffer_ofs      dw buffer
-    load_file_ptr   dw load_file
-    save_file_ptr   dw save_file
+    buffer_ofs      dw buffer   ; 2
+    proc_load_file:             ; 4
+        call load_file
+        retf
+    proc_save_file:             ; 8
+        call save_file
+        retf
     
     start.main:
     jmp main
@@ -14,7 +18,7 @@ start:
 ; Load a file from disk
 ; 
 ; @param
-;   AX - pointer to null-terminated filename
+;   SI - pointer to null-terminated filename
 ; @return
 ;   BX - file size in bytes
 ;   CARRY - set if error
@@ -29,7 +33,8 @@ load_file:
     mov di, filename_str
     
     .getChar:
-    movsb
+    lodsb
+    stosb
     cmp al, 0
     jnz .getChar
     
@@ -46,12 +51,12 @@ load_file:
     pop fs
     pop es
     pop ds
-    retf
+    ret
 
 ; Save a file to disk
 ;
 ; @param
-;   AX - pointer to null-terminated filename
+;   SI - pointer to null-terminated filename
 ;   CX - number of bytes to save
 ; @return
 ;   CARRY - set if error
@@ -66,14 +71,21 @@ save_file:
     mov di, filename_str
     
     .getChar:
-    movsb
+    lodsb
+    stosb
     cmp al, 0
     jnz .getChar
     
+    push ax
     mov ax, 0x2000
     mov ds, ax
     mov fs, ax
     mov gs, ax
+    pop ax
+    
+    call 0x0090
+    mov si, filename_str
+    call 0x0003
     
     mov ax, filename_str
     mov bx, buffer
@@ -83,15 +95,14 @@ save_file:
     pop fs
     pop es
     pop ds
-    retf
+    ret
     
 main:
     ; Number of bytes to copy
     mov cx, 32768-buffer
     
     ; Setup the destination to be directly above current segment
-    mov ax, 0x2000
-    add ax, 4096
+    mov ax, 0x2000+4096
     mov es, ax
     xor di, di
     mov si, buffer
@@ -117,6 +128,7 @@ main:
     ; Return to operating system
     ret
 
-filename_str db 13 dup 0
+;filename_str db 13 dup (0)
+filename_str db "FORCE.TXT",0
     
 buffer:

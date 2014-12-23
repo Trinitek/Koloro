@@ -43,10 +43,18 @@ void main(void) {
     setPaletteRegister(24, 64, 128, 64);
     
     // Write an array to a file
-    /*char helloFilename[] = "hello.txt\0";
+    char helloFilename[] = "hello.txt\0";
     char hello[] = "Hello world!\0";
-    os_writeFile(&helloFilename, &hello, 13);
-    */
+    setScreenMode(0x03);
+    bool status = os_writeFile(&helloFilename, &hello, 13);
+    waitForKey();
+    setScreenMode(0x13);
+    if (!status) {
+        setPaletteRegister(0, 255, 0, 0);
+    } else {
+        setPaletteRegister(0, 0, 192, 0);
+    }
+    //
     
     // Read a file to an array
     /*char hello2[14];
