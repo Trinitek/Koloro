@@ -68,7 +68,6 @@ char mempeekb(short segment, short offset) {
         "mov ax, [bp + 4]\n"
         "mov ds, ax\n"
         "mov si, [bp + 6]\n"
-        "mov ax, [bp + 8]\n"
         "lodsb\n"
         "pop ds");
 }
