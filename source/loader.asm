@@ -2,11 +2,14 @@
     org 32768
     
 start:
-    jmp main
+    jmp .main
     
     buffer_ofs      dw buffer
     load_file_ptr   dw load_file
     save_file_ptr   dw save_file
+    
+    start.main:
+    jmp main
 
 ; Load a file from disk
 ; 
