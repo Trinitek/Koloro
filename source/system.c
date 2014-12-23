@@ -102,7 +102,13 @@ short mempeekw(short segment, short offset) {
         size - number of bytes to be copied
 */
 void memcopy(short srcSeg, short srcOfs, short destSeg, short destOfs, short size) {
-    asm("push ds\n"
+    for (; size > 0; size--) {
+        mempokeb(destSeg, destOfs, mempeekb(srcSeg, srcOfs));
+        srcOfs++;
+        destOfs++;
+    }
+    
+    /*asm("push ds\n"
         "push es\n");
         
     asm("mov ax, [bp + 4]\n"
@@ -116,5 +122,5 @@ void memcopy(short srcSeg, short srcOfs, short destSeg, short destOfs, short siz
     asm("rep movsb");
         
     asm("pop es\n"
-        "pop ds");
+        "pop ds");*/
 }
