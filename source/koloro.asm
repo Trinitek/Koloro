@@ -16,4 +16,4 @@ incbin 'loader.bin'
 ;%include 'state.asm'
 
 ; Additional constant definitions, etc.
-%include '../source/mikedev.inc'
+%include '../source/inc/mikedev.inc'
