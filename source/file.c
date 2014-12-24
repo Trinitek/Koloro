@@ -1,18 +1,17 @@
 
 #include "bool.h"
+#include "system.h"
 
 /*
     Write the selected memory block to a file
     
     @param
-        *filenameStr - null terminated 8.3 character filename string
-        *array - memory block starting address
-        arrayLength - size of memory block in bytes
+        size - size of memory block in bytes
         
     @return
         true if successful
 */
-bool os_writeFile(char *filenameStr, char *array, short arrayLength) {
+bool os_writeFile(short size) {
     asm("push es \n"
         "mov si, [bp + 6] \n"   // Copy memory block to buffer
         "mov ax, 0x2000 \n"
@@ -52,4 +51,23 @@ short os_readFile(char *filenameStr, char *array) {
         "xor ax, ax\n"
         
         ".leave:\n");
+}
+
+bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short size) {
+    short bufferOfs = mempeekw(0x2000, 32768u + 2);
+    
+    // Copy null-terminated filename to the beginning of the buffer
+    char i = 0;
+    char c;
+    do {
+        c = mempeekb(0x2000 + 4096, filenameStr_ptr + i);
+        mempokeb(0x2000, bufferOfs + i, c);
+        i++;
+    } while (c != 0);
+    
+    // Copy data to the buffer, concatenated directly at the end of the filename
+    memcopy(sourceSeg, sourceOfs, 0x2000, bufferOfs + i, size);
+    
+    // Call operating system API to write the data to disk
+    return os_writeFile(size);
 }
