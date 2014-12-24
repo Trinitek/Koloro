@@ -1,6 +1,7 @@
 
 #include "bool.h"
 #include "system.h"
+#include "input.h"
 
 /*
     Write the selected memory block to a file
@@ -47,19 +48,34 @@ short os_readFile(char *filenameStr_ptr, char *array) {
 
 bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short size) {
     short bufferOfs = mempeekw(0x2000, 32768u + 2);
+    bufferOfs += 32768u;
     
     // Copy null-terminated filename to the beginning of the buffer
-    char i = 0;
     char c;
-    do {
-        c = mempeekb(0x2000 + 4096, filenameStr_ptr + i);
-        mempokeb(0x2000, bufferOfs + i, c);
+    /*do {
+        //c = *filenameStr_ptr;
+        c = mempeekb(0x3000, filenameStr_ptr);
+        mempokeb(0x2000, bufferOfs, c);
+        filenameStr_ptr++;
+        bufferOfs++;
+    } while (c != 0);*/
+
+    char asdf[] = "ABCD";
+    char *asdf_ptr = &asdf;
+    char i = 0;
+    while (true) {
+        if (mempeekb(0x3000, asdf_ptr) == 0);
+            break;
+        asdf_ptr++;
         i++;
-    } while (c != 0);
+    }
+    
+    memcopy(0x3000, asdf, 0x2000, bufferOfs, i);
+    memcopy(0x2000, 32768u + 16, 0x2000, bufferOfs, 8);
     
     // Copy data to the buffer, concatenated directly at the end of the filename
     memcopy(sourceSeg, sourceOfs, 0x2000, bufferOfs + i, size);
     
     // Call operating system API to write the data to disk
-    return os_writeFile(size);
+    return os_writeFile(bufferOfs + i, size);
 }

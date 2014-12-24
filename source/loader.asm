@@ -1,4 +1,18 @@
 
+macro pushseg {
+    push ds
+    push es
+    push fs
+    push gs
+}
+
+macro popseg {
+    pop gs
+    pop fs
+    pop es
+    pop ds
+}
+
     org 32768
     
 start:
@@ -11,6 +25,11 @@ start:
     proc_save_file:             ; 8
         call save_file
         retf
+    proc_print_string:          ; 12
+        call print_string
+        retf
+        
+    test_str        db "CopyMe!",0 ; 16
     
     start.main:
     jmp main
@@ -23,35 +42,35 @@ start:
 ;   BX - file size in bytes
 ;   CARRY - set if error
 load_file:
-    push ds
-    push es
-    push fs
-    push gs
+    ; push ds
+    ; push es
+    ; push fs
+    ; push gs
     
-    mov ax, 0x2000
-    mov es, ax
-    mov di, filename_str
+    ; mov ax, 0x2000
+    ; mov es, ax
+    ; mov di, filename_str
     
-    .getChar:
-    lodsb
-    stosb
-    cmp al, 0
-    jnz .getChar
+    ; .getChar:
+    ; lodsb
+    ; stosb
+    ; cmp al, 0
+    ; jnz .getChar
     
-    mov ax, 0x2000
-    mov ds, ax
-    mov fs, ax
-    mov gs, ax
+    ; mov ax, 0x2000
+    ; mov ds, ax
+    ; mov fs, ax
+    ; mov gs, ax
     
-    mov ax, filename_str
-    mov cx, buffer
-    call 0x0021
+    ; mov ax, filename_str
+    ; mov cx, buffer
+    ; call 0x0021
     
-    pop gs
-    pop fs
-    pop es
-    pop ds
-    ret
+    ; pop gs
+    ; pop fs
+    ; pop es
+    ; pop ds
+    ; ret
 
 ; Save a file to disk
 ;
@@ -60,23 +79,46 @@ load_file:
 ; @return
 ;   CARRY - set if error
 save_file:
-    push ds
-    push es
-    push fs
-    push gs
+    pushseg
     
     mov ax, 0x2000
     mov ds, ax
     mov fs, ax
     mov gs, ax
     
+        mov ax, 3
+        int 0x10
+        
+        mov si, buffer
+        call print_string
+        
+        xor ax, ax
+        int 0x16
+        
+        mov si, bx
+        call print_string
+        
+        xor ax, ax
+        int 0x16
+    
     mov ax, buffer
     call 0x0096
     
-    pop gs
-    pop fs
-    pop es
-    pop ds
+    popseg
+    ret
+
+print_string:
+    pushseg
+    
+    mov ax, 0x2000
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    
+    call 0x0003
+    
+    popseg
     ret
     
 main:
@@ -84,7 +126,7 @@ main:
     mov cx, 32768-buffer
     
     ; Setup the destination to be directly above current segment
-    mov ax, 0x2000+4096
+    mov ax, 0x3000
     mov es, ax
     xor di, di
     mov si, buffer
@@ -98,7 +140,7 @@ main:
     mov gs, ax
     
     ; Far call to the executable
-    call 0x2000+4096:0
+    call 0x3000:0;+13
     
     ; Restore all segment registers before returning
     mov ax, 0x2000

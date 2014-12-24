@@ -107,20 +107,4 @@ void memcopy(short srcSeg, short srcOfs, short destSeg, short destOfs, short siz
         srcOfs++;
         destOfs++;
     }
-    
-    /*asm("push ds\n"
-        "push es\n");
-        
-    asm("mov ax, [bp + 4]\n"
-        "mov ds, ax\n"
-        "mov si, [bp + 6]\n"
-        "mov ax, [bp + 8]\n"
-        "mov es, ax\n"
-        "mov di, [bp + 10]\n"
-        "mov cx, [bp + 12]\n");
-        
-    asm("rep movsb");
-        
-    asm("pop es\n"
-        "pop ds");*/
 }

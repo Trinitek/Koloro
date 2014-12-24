@@ -12,14 +12,18 @@ smlrc -flat16 -I source/inc -label 700 source\fixed.c asmgen\fixed.asm
 smlrc -flat16 -I source/inc source\main.c asmgen\main.asm
 
 @rem Assemble loader
-fasm source\loader.asm asmgen\loader.bin
+fasm source\loader.asm bin\loader.bin
 
-@rem Assemble main file into binary
+@rem Assemble program
 @cd asmgen
-nasm -f bin -o ..\koloro.bin ..\source\koloro.asm
+nasm -f bin -o ..\bin\prog.bin ..\source\prog.asm
+@cd ..\bin
+
+@rem Assemble loader and program into final executable
+nasm -f bin -o koloro.bin ..\source\koloro.asm
 @cd ..
 
 @rem Copy binary to virtual floppy disk
 imdisk -a -f mikeos.img -m K:
-copy koloro.bin K:\
+copy bin\koloro.bin K:\
 imdisk -D -m K:

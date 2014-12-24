@@ -4,6 +4,10 @@
 #include "file.h"
 #include "draw.h"
 
+/*asm("jmp asm_start \n"
+    "db \"Seg3000!\",0 \n" // 8 chars + null = 9 total
+    "asm_start:");*/
+
 void main(void) {
     // Set the video mode to VGA 256-color graphics
     setScreenMode(0x13);
@@ -46,7 +50,7 @@ void main(void) {
     char helloFilename[] = "hello.txt\0";
     char hello[] = "Hello world!\0";
     //setScreenMode(0x03);
-    bool status = saveFile(&helloFilename, &hello, 13);
+    bool status = saveFile(&helloFilename, 0x3000, &hello, 13);
     waitForKey();
     setScreenMode(0x13);
     if (!status) {
@@ -63,7 +67,6 @@ void main(void) {
     for (x = 0; x < helloSize; x++) {
         putPixel(x, 100, 14);
     }
-    
     */
     
     waitForKey();
