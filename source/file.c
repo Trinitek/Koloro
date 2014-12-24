@@ -6,23 +6,15 @@
     Write the selected memory block to a file
     
     @param
+        bufferOfs - pointer offset to beginning of data buffer above filename
         size - size of memory block in bytes
         
     @return
         true if successful
 */
-bool os_writeFile(short size) {
-    asm("push es \n"
-        "mov si, [bp + 6] \n"   // Copy memory block to buffer
-        "mov ax, 0x2000 \n"
-        "mov es, ax \n"
-        "mov di, [es:32768+2] \n"
-        "mov cx, [bp + 8] \n"
-        "rep stosb \n"
-        "pop es \n");
-        
-    asm("mov si, [bp + 4] \n"
-        "mov cx, [bp + 8] \n"
+bool os_writeFile(short bufferOfs, short size) {
+    asm("mov bx, [bp + 4] \n"
+        "mov cx, [bp + 6] \n"
         "call 0x2000:32768+8 \n"
         "setnc al \n"           // Set AL=1 if carry=0
         "mov ah, 0");           // Sanitize AH
@@ -38,7 +30,7 @@ bool os_writeFile(short size) {
     @return
         size of file in bytes, 0 if not found
 */
-short os_readFile(char *filenameStr, char *array) {
+short os_readFile(char *filenameStr_ptr, char *array) {
     asm("mov ax, [bp + 4]\n"
         "mov cx, [bp + 6]\n"
         "call os_load_file\n"

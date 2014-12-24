@@ -56,7 +56,6 @@ load_file:
 ; Save a file to disk
 ;
 ; @param
-;   SI - pointer to null-terminated filename
 ;   CX - number of bytes to save
 ; @return
 ;   CARRY - set if error
@@ -67,28 +66,11 @@ save_file:
     push gs
     
     mov ax, 0x2000
-    mov es, ax
-    mov di, filename_str
-    
-    .getChar:
-    lodsb
-    stosb
-    cmp al, 0
-    jnz .getChar
-    
-    push ax
-    mov ax, 0x2000
     mov ds, ax
     mov fs, ax
     mov gs, ax
-    pop ax
     
-    call 0x0090
-    mov si, filename_str
-    call 0x0003
-    
-    mov ax, filename_str
-    mov bx, buffer
+    mov ax, buffer
     call 0x0096
     
     pop gs
@@ -127,8 +109,5 @@ main:
     
     ; Return to operating system
     ret
-
-;filename_str db 13 dup (0)
-filename_str db "FORCE.TXT",0
-    
+   
 buffer:
