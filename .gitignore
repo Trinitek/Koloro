@@ -1,7 +1,7 @@
 
 /stderr.txt
 /stdout.txt
-/koloro.bin
 /mikeos.img
 
 asmgen/
+bin/
