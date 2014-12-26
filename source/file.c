@@ -17,7 +17,7 @@
 bool os_writeFile(short bufferOfs, short size) {
     asm("mov bx, [bp + 4] \n"
         "mov cx, [bp + 6] \n"
-        "call 0x2000:32768+8 \n"
+        "call 0x2000:32768+6 \n"
         "setnc al \n"           // Set AL=1 if carry=0
         "mov ah, 0");           // Sanitize AH
 }
@@ -54,15 +54,15 @@ bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short siz
     
     // Copy null-terminated filename to the beginning of the buffer
     char c;
-    /*do {
-        //c = *filenameStr_ptr;
-        c = mempeekb(0x3000, filenameStr_ptr);
+    do {
+        c = *filenameStr_ptr;
+        //c = mempeekb(0x3000, filenameStr_ptr);
         mempokeb(0x2000, bufferOfs, c);
         filenameStr_ptr++;
         bufferOfs++;
-    } while (c != 0);*/
+    } while (c != 0);
 
-    char asdf[] = "ABCD";
+    /*char asdf[] = "ABCD";
     char *asdf_ptr = &asdf;
     char i = 0;
     while (true) {
@@ -72,11 +72,11 @@ bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short siz
         i++;
     }
     
-    memcopy(0x3000, &asdf, 0x2000, bufferOfs, i);
+    memcopy(0x3000, &asdf, 0x2000, bufferOfs, i);*/
     
     // Copy data to the buffer, concatenated directly at the end of the filename
-    memcopy(sourceSeg, sourceOfs, 0x2000, bufferOfs + i, size);
+    memcopy(sourceSeg, sourceOfs, 0x2000, bufferOfs, size);
     
     // Call operating system API to write the data to disk
-    return os_writeFile(bufferOfs + i, size);
+    return os_writeFile(bufferOfs, size);
 }
