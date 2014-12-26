@@ -1,4 +1,6 @@
 
+buffer_ofs equ 32768 + 256
+
 macro pushseg {
     push ds
     push es
@@ -18,18 +20,15 @@ macro popseg {
 start:
     jmp .main                   ; 0
     
-    buffer_ofs      dw buffer   ; 2
-    proc_load_file:             ; 4
+    proc_load_file:             ; 2
         call load_file
         retf
-    proc_save_file:             ; 8
+    proc_save_file:             ; 6
         call save_file
         retf
-    proc_print_string:          ; 12
+    proc_print_string:          ; 10
         call print_string
         retf
-        
-    test_str        db "CopyMe!",0 ; 16
     
     start.main:
     jmp main
@@ -89,7 +88,7 @@ save_file:
         mov ax, 3
         int 0x10
         
-        mov si, buffer
+        mov si, buffer_ofs
         call print_string
         
         xor ax, ax
@@ -101,7 +100,7 @@ save_file:
         xor ax, ax
         int 0x16
     
-    mov ax, buffer
+    mov ax, buffer_ofs
     call 0x0096
     
     popseg

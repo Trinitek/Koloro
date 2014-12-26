@@ -2,6 +2,7 @@
 #include "bool.h"
 #include "system.h"
 #include "input.h"
+#include "screen.h"
 
 /*
     Write the selected memory block to a file
@@ -47,8 +48,9 @@ short os_readFile(char *filenameStr_ptr, char *array) {
 }
 
 bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short size) {
-    short bufferOfs = mempeekw(0x2000, 32768u + 2);
-    bufferOfs += 32768u;
+    //short bufferOfs = mempeekw(0x2000, 32768u + 2);
+    //bufferOfs += 32768u;
+    short bufferOfs = 32768u + 256;
     
     // Copy null-terminated filename to the beginning of the buffer
     char c;
@@ -70,8 +72,7 @@ bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short siz
         i++;
     }
     
-    memcopy(0x3000, asdf, 0x2000, bufferOfs, i);
-    memcopy(0x2000, 32768u + 16, 0x2000, bufferOfs, 8);
+    memcopy(0x3000, &asdf, 0x2000, bufferOfs, i);
     
     // Copy data to the buffer, concatenated directly at the end of the filename
     memcopy(sourceSeg, sourceOfs, 0x2000, bufferOfs + i, size);
