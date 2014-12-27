@@ -86,21 +86,6 @@ save_file:
     mov fs, ax
     mov gs, ax
     
-        mov ax, 3
-        int 0x10
-        
-        mov si, buffer_ofs
-        call print_string
-        
-        xor ax, ax
-        int 0x16
-        
-        mov si, bx
-        call print_string
-        
-        xor ax, ax
-        int 0x16
-    
     mov ax, buffer_ofs
     call 0x0096
     

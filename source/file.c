@@ -1,8 +1,6 @@
 
 #include "bool.h"
 #include "system.h"
-#include "input.h"
-#include "screen.h"
 
 /*
     Write the selected memory block to a file
