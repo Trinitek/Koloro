@@ -48,31 +48,16 @@ short os_readFile(char *filenameStr_ptr, char *array) {
 }
 
 bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short size) {
-    //short bufferOfs = mempeekw(0x2000, 32768u + 2);
-    //bufferOfs += 32768u;
     short bufferOfs = 32768u + 256;
     
     // Copy null-terminated filename to the beginning of the buffer
     char c;
     do {
         c = *filenameStr_ptr;
-        //c = mempeekb(0x3000, filenameStr_ptr);
         mempokeb(0x2000, bufferOfs, c);
         filenameStr_ptr++;
         bufferOfs++;
     } while (c != 0);
-
-    /*char asdf[] = "ABCD";
-    char *asdf_ptr = &asdf;
-    char i = 0;
-    while (true) {
-        if (mempeekb(0x3000, asdf_ptr) == 0);
-            break;
-        asdf_ptr++;
-        i++;
-    }
-    
-    memcopy(0x3000, &asdf, 0x2000, bufferOfs, i);*/
     
     // Copy data to the buffer, concatenated directly at the end of the filename
     memcopy(sourceSeg, sourceOfs, 0x2000, bufferOfs, size);

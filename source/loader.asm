@@ -82,6 +82,7 @@ save_file:
     
     mov ax, 0x2000
     mov ds, ax
+    mov es, ax
     mov fs, ax
     mov gs, ax
     
