@@ -3,24 +3,6 @@
 #include "system.h"
 
 /*
-    Write the selected memory block to a file
-    
-    @param
-        bufferOfs - pointer offset to beginning of data buffer above filename
-        size - size of memory block in bytes
-        
-    @return
-        true if successful
-*/
-bool os_writeFile(short bufferOfs, short size) {
-    asm("mov bx, [bp + 4] \n"
-        "mov cx, [bp + 6] \n"
-        "call 0x2000:32768+6 \n"
-        "setnc al \n"           // Set AL=1 if carry=0
-        "mov ah, 0");           // Sanitize AH
-}
-
-/*
     Read the specified file into memory
     
     @param
@@ -59,7 +41,11 @@ bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short siz
     memcopy(sourceSeg, sourceOfs, 0x2000, bufferOfs, size);
     
     // Call operating system API to write the data to disk
-    return os_writeFile(bufferOfs, size);
+    asm("mov bx, [bp - 2] \n"
+        "mov cx, [bp + 10] \n"
+        "call 0x2000:32768+6 \n"
+        "setnc al \n"
+        "mov ah, 0");   // The value in AX will be the return value
 }
 
 short loadFile(char *filenameStr_ptr, short destSeg, short destOfs) {
