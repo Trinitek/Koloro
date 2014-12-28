@@ -2,6 +2,17 @@
 #include "bool.h"
 #include "system.h"
 
+/*
+    Save a block of memory to disk
+    
+    @param
+        *filenameStr_ptr - pointer to filename
+        sourceSeg - segment of source memory block
+        sourceOfs - offset of source memory block
+        size - number of bytes to save
+    @return
+        true if successful
+*/
 bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short size) {
     short bufferOfs = 32768u + 256;
     
@@ -25,6 +36,16 @@ bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short siz
         "mov ah, 0");   // The value in AX will be the return value
 }
 
+/*
+    Load a file to the specified memory location
+    
+    @param
+        *filenameStr_ptr - pointer to filename
+        destSeg - segment of destination memory block
+        destOfs - offset of destination memory block
+    @return
+        size of file if successful, 0 otherwise
+*/
 short loadFile(char *filenameStr_ptr, short destSeg, short destOfs) {
     short bufferOfs = 32768u + 256;
     
