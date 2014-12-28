@@ -1,4 +1,9 @@
 
+@rem Create output directories if they don't already exist
+@rem Suppress error messages by redirecting them to the NUL device
+@md asmgen 2> nul
+@md bin 2> nul
+
 @rem Generate asm files from C sources
 smlrc -flat16 -I source/inc -label 100 source\screen.c asmgen\screen.asm
 smlrc -flat16 -I source/inc -label 200 source\input.c asmgen\input.asm
