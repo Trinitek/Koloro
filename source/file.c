@@ -2,29 +2,6 @@
 #include "bool.h"
 #include "system.h"
 
-/*
-    Read the specified file into memory
-    
-    @param
-        *filenameStr - null terminated 8.3 character filename string
-        *array - memory block starting address
-    
-    @return
-        size of file in bytes, 0 if not found
-*/
-short os_readFile() {
-    asm("call 0x2000:32768+2\n"
-        
-        "jc .error\n"           // If there was no error, copy filesize into AX
-        "mov ax, bx\n"
-        "jmp .leave\n"
-        
-        ".error:\n"             // If there was an error, write 0 to AX
-        "xor ax, ax\n"
-        
-        ".leave:\n");
-}
-
 bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short size) {
     short bufferOfs = 32768u + 256;
     
@@ -61,7 +38,16 @@ short loadFile(char *filenameStr_ptr, short destSeg, short destOfs) {
     } while (c != 0);
     
     // Call operating system API to write data from disk to buffer
-    short fileSize = os_readFile();
+    short fileSize;
+    
+    asm("call 0x2000:32768+2\n"
+        "jc .error \n"          // If there was no error, copy filesize into AX
+        "mov ax, bx \n"
+        "jmp .leave \n"
+        ".error: \n"            // If there was an error, write 0 to AX
+        "xor ax, ax \n"
+        ".leave: \n"
+        "mov [bp - 6], ax");    // fileSize = AX
     
     // Copy data from buffer to destination if there was no error
     if (fileSize > 0) {
