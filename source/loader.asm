@@ -34,42 +34,25 @@ start:
     jmp main
 
 ; Load a file from disk
-; 
-; @param
-;   SI - pointer to null-terminated filename
+;
 ; @return
 ;   BX - file size in bytes
 ;   CARRY - set if error
 load_file:
-    ; push ds
-    ; push es
-    ; push fs
-    ; push gs
+    pushseg
     
-    ; mov ax, 0x2000
-    ; mov es, ax
-    ; mov di, filename_str
+    mov ax, 0x2000
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
     
-    ; .getChar:
-    ; lodsb
-    ; stosb
-    ; cmp al, 0
-    ; jnz .getChar
+    mov ax, buffer_ofs
+    mov cx, buffer_ofs
+    call 0x0021
     
-    ; mov ax, 0x2000
-    ; mov ds, ax
-    ; mov fs, ax
-    ; mov gs, ax
-    
-    ; mov ax, filename_str
-    ; mov cx, buffer
-    ; call 0x0021
-    
-    ; pop gs
-    ; pop fs
-    ; pop es
-    ; pop ds
-    ; ret
+    popseg
+    ret
 
 ; Save a file to disk
 ;

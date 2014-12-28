@@ -58,23 +58,11 @@ void main(void) {
     } else {
         setPaletteRegister(0, 0, 192, 0);
     }
-    //
-    
-    // Read a file to an array
-    /*char hello2[14];
-    short helloSize = os_readFile(&helloFilename, &hello2);
-    
-    for (x = 0; x < helloSize; x++) {
-        putPixel(x, 100, 14);
-    }
-    */
     
     waitForKey();
     
-    //tScreenMode(0x13);
-    //tPaletteRegister(0, 255, 255, 255);
+    // Put the letter K onto the screen
     setPaletteRegister(40, 0, 0, 0);
-    
     putPixel(1, 1, 40);
     putPixel(1, 2, 40);
     putPixel(1, 3, 40);
@@ -87,6 +75,14 @@ void main(void) {
     putPixel(4, 1, 40);
     putPixel(5, 1, 40);
     putPixel(5, 5, 40);
+    
+    waitForKey();
+    
+    // Read a file into an array
+    short bytesLoaded = loadFile(&helloFilename, 0x2000, 32768u + 256);
+    if (bytesLoaded > 0) {
+        setPaletteRegister(0, 0, 0, 255);
+    } else setPaletteRegister(0, 255, 64, 64);
     
     waitForKey();
     
