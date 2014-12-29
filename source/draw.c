@@ -93,3 +93,7 @@ void setPixel(short x, short y, char color) {
 void erasePixel(short x, short y) {
     // TODO: this
 }
+
+void putChar(short x, short y, char color) {
+    // TODO
+}

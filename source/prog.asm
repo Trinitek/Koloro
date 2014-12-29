@@ -11,6 +11,7 @@ org 0x0
 %include 'math.asm'
 %include 'fixed.asm'
 ;%include 'state.asm'
+%include 'font.asm'
 
 ; Additional constant definitions, etc.
 %include '../source/inc/mikedev.inc'

@@ -13,6 +13,7 @@ smlrc -flat16 -I source/inc -label 500 source\file.c asmgen\file.asm
 smlrc -flat16 -I source/inc -label 600 source\math.c asmgen\math.asm
 smlrc -flat16 -I source/inc -label 700 source\fixed.c asmgen\fixed.asm
 @rem smlrc -flat16 -I source/inc -label 800 source\state.c asmgen\state.asm
+smlrc -flat16 -I source/inc -I font/inc -label 900 source\font.c asmgen\font.asm
 
 smlrc -flat16 -I source/inc source\main.c asmgen\main.asm
 
