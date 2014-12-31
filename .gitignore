@@ -2,6 +2,8 @@
 /stderr.txt
 /stdout.txt
 /mikeos.img
+/gourceout.ppm
+/gourcevid.mp4
 
 font/*.pxl
 
