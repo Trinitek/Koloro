@@ -46,6 +46,16 @@ void main(void) {
     setPaletteRegister(23, 64, 64, 128);
     setPaletteRegister(24, 64, 128, 64);
     
+    waitForKey();
+    
+    putChar('A', 30, 60, 19);
+    putChar('B', 36, 60, 20);
+    putChar(0, 42, 60, 22);
+    
+    waitForKey();
+    
+    /*
+    
     // Write an array to a file
     char helloFilename[] = "hello.txt\0";
     char hello[] = "Hello world!\0";
@@ -85,6 +95,8 @@ void main(void) {
     } else setPaletteRegister(0, 255, 64, 64);
     
     waitForKey();
+    
+    */
     
     // Set the video mode to 16-color 80x25 text
     setScreenMode(0x03);

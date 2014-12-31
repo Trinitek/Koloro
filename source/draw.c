@@ -94,6 +94,30 @@ void erasePixel(short x, short y) {
     // TODO: this
 }
 
-void putChar(short x, short y, char color) {
-    // TODO
+void putChar(char c, short x, short y, char color) {
+    char* glyphOfs = getGlyph(c);
+    char byte = 0;
+    char i;
+    unsigned char pattern = 128u; // 0b10000000
+    short xOfs = 0;
+    short yOfs = 0;
+    
+    for (i = 0; i < 5*5; i++) {
+        // Plot pixel only if bit is set
+        if (*(glyphOfs + byte) & pattern) setPixel(x+xOfs, y+yOfs, color);
+        
+        // Maximum of 5 pixels per row
+        if (!((i + 1) % 5) && i){
+            xOfs = 0;
+            yOfs++;
+        }
+        else xOfs++;
+        
+        // Next string of bytes if the pattern is used up
+        pattern = pattern >> 1;
+        if (!pattern) {
+            byte++;
+            pattern = 128u;
+        }
+    }
 }
