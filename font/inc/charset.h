@@ -384,6 +384,12 @@ const unsigned char slash_f_pxl[4] = {
     0x11, 0x08, 0x44, 0x00
 };
 
+/* Contents of file test.pxl */
+#define test_pxl_size 4
+const unsigned char test_pxl[4] = {
+    0xAA, 0xAA, 0xAA, 0x80
+};
+
 /* Contents of file under.pxl */
 #define under_pxl_size 4
 const unsigned char under_pxl[4] = {

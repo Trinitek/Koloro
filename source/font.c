@@ -45,6 +45,7 @@ short getGlyph(char c) {
         case ';': return &semi_pxl;
         case '\\': return &slash_b_pxl;
         case '/': return &slash_f_pxl;
+        case 0xFF: return &test_pxl;
         case '_': return &under_pxl;
         
         // Uppercase letters
