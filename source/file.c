@@ -20,13 +20,13 @@ bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short siz
     char c;
     do {
         c = *filenameStr_ptr;
-        mempokeb(0x2000, bufferOfs, c);
+        mempokeb(OS_SEG, bufferOfs, c);
         filenameStr_ptr++;
         bufferOfs++;
     } while (c != 0);
     
     // Copy data to the buffer, concatenated directly at the end of the filename
-    memcopy(sourceSeg, sourceOfs, 0x2000, bufferOfs, size);
+    memcopy(sourceSeg, sourceOfs, OS_SEG, bufferOfs, size);
     
     // Call operating system API to write the data to disk
     asm("mov bx, [bp - 2] \n"
@@ -53,7 +53,7 @@ short loadFile(char *filenameStr_ptr, short destSeg, short destOfs) {
     char c;
     do {
         c = *filenameStr_ptr;
-        mempokeb(0x2000, bufferOfs, c);
+        mempokeb(OS_SEG, bufferOfs, c);
         filenameStr_ptr++;
         bufferOfs++;
     } while (c != 0);
@@ -72,7 +72,7 @@ short loadFile(char *filenameStr_ptr, short destSeg, short destOfs) {
     
     // Copy data from buffer to destination if there was no error
     if (fileSize > 0) {
-        memcopy(0x2000, 32768u + 256, destSeg, destOfs, fileSize);
+        memcopy(OS_SEG, 32768u + 256, destSeg, destOfs, fileSize);
     }
     
     return fileSize;

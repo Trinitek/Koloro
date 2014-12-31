@@ -1,4 +1,6 @@
 
+#define OS_SEG          0x2000
+#define PROGRAM_SEG     0x3000
 #define VIDEO_SEG       0xA000
 
 void outb(char port, char data);
