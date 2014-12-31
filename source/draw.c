@@ -4,7 +4,14 @@
 
 /*
     Draws the outline of a rectangle to the screen.
-    */
+    
+    @param
+        x - x coordinate
+        y - y coordinate
+        width - width of the rectangle
+        height - height of the rectangle
+        c - color of the rectangle
+*/
 void drawRectangle(short x, short y, short width, short height, char c) {
         int i;
         int j;
@@ -21,6 +28,13 @@ void drawRectangle(short x, short y, short width, short height, char c) {
 
 /*
     Draws a rectangle with a filled center.
+    
+    @param
+        x - x coordinate
+        y - y coordinate
+        width - width of the rectangle
+        height - height of the rectangle
+        c - color of the rectangle
  */
 void fillRectangle(short x, short y, short width, short height, char c) {
     int i;
@@ -34,7 +48,14 @@ void fillRectangle(short x, short y, short width, short height, char c) {
 
 /*
     Draw a line from point (x1, y1) to point (x2, y2)
-    */
+    
+    @param
+        x1 - starting x coordinate
+        y1 - starting y coordinate
+        x2 - ending x coordinate
+        y2 - ending x coordinate
+        color - color of the line
+*/
 void drawLine(short x1, short y1, short x2, short y2, char c) {
     // The difference between the two point's y values.
     int y = y2 - y1;
@@ -58,7 +79,13 @@ void drawLine(short x1, short y1, short x2, short y2, char c) {
 
 /*
     Draws a circle with a center at (centerX, centerY) and a radius of radius.
-    */
+    
+    @param
+        centerX - x coordinate of center
+        centerY - y coordinate of center
+        radius - radius of the circle
+        color - color of the circle
+*/
 void drawCircle(short centerX, short centerY, short radius, char color) {
     short angle = 0;
 
@@ -74,7 +101,12 @@ void drawCircle(short centerX, short centerY, short radius, char color) {
     Draws a single dot at this point.
     Is a seperate function from setPixel() because this action will need to be
     recorded for the undo function.
-   */
+    
+    @param
+        x - x coordinate
+        y - y coordinate
+        color - color of pixel
+*/
 void pencil(short x, short y, char color) {
     setPixel(x, y, color);
 }
@@ -82,18 +114,36 @@ void pencil(short x, short y, char color) {
 /*
     Function that draws a pixel to the image being worked on.
     Will mutate a value within the current layer.
-    */
+    
+    @param
+        x - x coordinate
+        y - y coordinate
+        color - color of pixel
+*/
 void setPixel(short x, short y, char color) {
     putPixel(x, y, color);
 }
 
 /*
-    Sets the current value in the current layer as translucent.
-    */
+    Sets the current value in the current layer as translucent
+    
+    @param
+        x - x coordinate
+        y - y coordinate
+*/
 void erasePixel(short x, short y) {
     // TODO: this
 }
 
+/*
+    Put a 5x5 font character on the current layer
+    
+    @param
+        c - character to write
+        x - x coordinate, top left origin
+        y - y coordinate, top left origin
+        color - color of character
+*/
 void putChar(char c, short x, short y, char color) {
     char* glyphOfs = getGlyph(c);
     char byte = 0;
