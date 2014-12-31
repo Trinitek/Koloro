@@ -8,6 +8,11 @@
 
 /*
     Plot a pixel at the specified X and Y coordinate
+    
+    @param
+        x - x coordinate
+        y - y coordinate
+        color - color of pixel
 */
 void putPixel(unsigned short x, unsigned short y, char color) {
     if (x < 320u && y < 200) mempokeb(VIDEO_SEG, y * 320 + x, color);
@@ -26,6 +31,15 @@ void setScreenMode(char mode) {
         "int 0x10");
 }
 
+/*
+    Set the color of the specified VGA palette register
+    
+    @param
+        index - palette register index
+        red - red intensity
+        green - green intensity
+        blue - blue intensity
+*/
 void setPaletteRegister(unsigned char index, unsigned char red, unsigned char green, unsigned char blue) {
     asm("cli");
     outb(PALETTE_MASK, 0xFF);
