@@ -113,7 +113,7 @@ void putChar(char c, short x, short y, char color) {
         }
         else xOfs++;
         
-        // Next string of bytes if the pattern is used up
+        // Next string of bits if the pattern is used up
         pattern = pattern >> 1;
         if (!pattern) {
             byte++;
