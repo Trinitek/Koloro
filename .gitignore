@@ -3,5 +3,7 @@
 /stdout.txt
 /mikeos.img
 
+font/*.pxl
+
 asmgen/
 bin/
