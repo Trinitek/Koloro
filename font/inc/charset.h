@@ -78,6 +78,12 @@ const unsigned char dollar_pxl[4] = {
     0x7D, 0x1C, 0x5F, 0x00
 };
 
+/* Contents of file equal.pxl */
+#define equal_pxl_size 4
+const unsigned char equal_pxl[4] = {
+    0x07, 0xC1, 0xF0, 0x00
+};
+
 /* Contents of file exc.pxl */
 #define exc_pxl_size 4
 const unsigned char exc_pxl[4] = {
@@ -171,7 +177,7 @@ const unsigned char l_n_pxl[4] = {
 /* Contents of file l_o.pxl */
 #define l_o_pxl_size 4
 const unsigned char l_o_pxl[4] = {
-    0x74, 0x63, 0x17, 0x00
+    0x03, 0x25, 0x26, 0x00
 };
 
 /* Contents of file l_p.pxl */
@@ -471,7 +477,7 @@ const unsigned char u_n_pxl[4] = {
 /* Contents of file u_o.pxl */
 #define u_o_pxl_size 4
 const unsigned char u_o_pxl[4] = {
-    0x03, 0x25, 0x26, 0x00
+    0x74, 0x63, 0x17, 0x00
 };
 
 /* Contents of file u_p.pxl */

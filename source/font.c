@@ -30,6 +30,7 @@ short getGlyph(char c) {
         case ',': return &comma_pxl;
         case '-': return &dash_pxl;
         case '$': return &dollar_pxl;
+        case '=': return &equal_pxl;
         case '!': return &exc_pxl;
         case 0: return &null_pxl;
         case '#': return &octo_pxl;
