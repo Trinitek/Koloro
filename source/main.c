@@ -52,6 +52,11 @@ void main(void) {
     putChar('B', 36, 60, 20);
     putChar(0, 42, 60, 22);
     
+    char printTest[] = "This is a test string!";
+    print(&printTest, 20, 20, 0);
+    char printTest2[] = "Hello world! ABC XYZ";
+    print(&printTest2, 20, 26, 1);
+    
     waitForKey();
     
     /*

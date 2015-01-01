@@ -1,6 +1,7 @@
 
 #include "screen.h"
 #include "math.h"
+#include "bool.h"
 
 /*
     Draws the outline of a rectangle to the screen.
@@ -169,5 +170,26 @@ void putChar(char c, short x, short y, char color) {
             byte++;
             pattern = 128u;
         }
+    }
+}
+
+/*
+    Put a string of characters on the current layer
+    
+    @param
+        stringPtr - pointer to null terminated string
+        x - x coordinate
+        y - y coordinate
+        color - color of the characters
+*/
+void print(char* stringPtr, short x, short y, char color) {
+    char c;
+    while (true) {
+        c = *stringPtr;
+        if (!c) break;
+        else if (c != ' ') putChar(c, x, y, color);
+        
+        x += 6;
+        stringPtr++;
     }
 }
