@@ -14,12 +14,12 @@
         c - color of the rectangle
 */
 void drawRectangle(short x, short y, short width, short height, char c) {
-        int i;
-        int j;
-        for (i = x; i < width; i++) {
-            for (j = y; j < height; j++) {
-                if(i != x && i != x + width) {
-                    if(j != y && j != y + height) {
+        int newX;
+        int newY;
+        for (newX = x; newX < width; newX++) {
+            for (newY = y; newY < height; newY++) {
+                if(newX != x && newX != x + width) {
+                    if(newY != y && newY != y + height) {
                         setPixel(x, y, c);
                     }
                 }
@@ -38,11 +38,11 @@ void drawRectangle(short x, short y, short width, short height, char c) {
         c - color of the rectangle
  */
 void fillRectangle(short x, short y, short width, short height, char c) {
-    int i;
-    int j;
-    for (i = x; i < width + x; i++) {
-        for (j = y; j < height + y; j++) {
-            setPixel(i, j, c);
+    int newX;
+    int newY;
+    for (newX = x; newX < width + x; newX++) {
+        for (newY = y; newY < height + y; newY++) {
+            setPixel(newX, newY, c);
         }
     }
 }

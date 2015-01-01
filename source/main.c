@@ -33,6 +33,13 @@ void main(void) {
         }
     }
     
+    for (x = 0; x <= 240; x += 80) {
+        for (y = 0; y <= 150; y += 50) {
+            drawRectangle(x, y, BOXW, BOXH, c);
+            c++;
+        }
+    }
+    
     waitForKey();
     
     // Cycle through some different colors
