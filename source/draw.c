@@ -14,18 +14,28 @@
         c - color of the rectangle
 */
 void drawRectangle(short x, short y, short width, short height, char c) {
-        int newX;
-        int newY;
-        for (newX = x; newX < width; newX++) {
-            for (newY = y; newY < height; newY++) {
-                if(newX != x && newX != x + width) {
-                    if(newY != y && newY != y + height) {
-                        setPixel(x, y, c);
-                    }
-                }
-            }
+    int i;
+    int newX;
+    int newY;
+    
+    // Draw horizontal lines
+    newY = y;
+    for (i = 0; i < 2; i++) {
+        for (newX = 0; newX < width; newX++) {
+            setPixel(newX + x, newY, c);
         }
+        newY += height - 1;
     }
+    
+    // Draw vertical lines
+    newX = x;
+    for (i = 0; i < 2; i++) {
+        for (newY = 0; newY < height; newY++) {
+            setPixel(newX, newY + y, c);
+        }
+        newX += width - 1;
+    }
+}
 
 /*
     Draws a rectangle with a filled center.
