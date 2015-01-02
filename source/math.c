@@ -19,6 +19,7 @@ short abs(short x) {
         "fabs \n"                   // ST0 = abs(ST0)
         "fist word [bp - 2] \n"     // result = ST0
         );
+    return result;
 }
 
 /*
@@ -42,6 +43,7 @@ fixed sin(fixed x) {
         "fimul word [bp - 2] \n"    // ST0 = ST0 * 100
         "fist word [bp - 4]"        // result = (int)ST0
         );
+    return result;
 }
 
 /*
@@ -65,4 +67,5 @@ fixed cos(fixed x) {
         "fimul word [bp - 2] \n"    // ST0 = ST0 * 100
         "fist word [bp - 4]"        // result = (int)ST0
         );
+    return result;
 }
