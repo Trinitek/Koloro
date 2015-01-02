@@ -12,8 +12,8 @@
 */
 short abs(short x) {
     short result;
-    asm("fninit \n"                 // initialize FPU
-        "fnclex \n"                 // clear previous exceptions
+    asm("fnclex \n"                 // clear previous exceptions
+        "fninit \n"                 // re-initialize FPU
         
         "fild word [bp + 4] \n"     // ST0 = x
         "fabs \n"                   // ST0 = abs(ST0)
@@ -34,8 +34,8 @@ short abs(short x) {
 fixed sin(fixed x) {
     short divisor = 100;
     fixed result;
-    asm("fninit \n"                 // initialize FPU
-        "fnclex \n"                 // clear previous exceptions
+    asm("fnclex \n"                 // clear previous exceptions
+        "fninit \n"                 // re-initialize FPU
         
         "fild word [bp + 4] \n"     // ST0 = x
         "fidiv word [bp - 2] \n"    // ST0 = ST0 / 100
@@ -58,8 +58,8 @@ fixed sin(fixed x) {
 fixed cos(fixed x) {
     short divisor = 100;
     fixed result;
-    asm("fninit \n"                 // initialize FPU
-        "fnclex \n"                 // clear previous exceptions
+    asm("fnclex \n"                 // clear previous exceptions
+        "fninit \n"                 // re-initialize FPU
         
         "fild word [bp + 4] \n"     // ST0 = x
         "fidiv word [bp - 2] \n"    // ST0 = ST0 / 100
