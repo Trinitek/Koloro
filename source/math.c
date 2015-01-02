@@ -37,10 +37,10 @@ fixed sin(fixed x) {
         "fnclex \n"                 // clear previous exceptions
         
         "fild word [bp + 4] \n"     // ST0 = x
-        "fidiv word [bp + 6] \n"    // ST0 = ST0 / 100
+        "fidiv word [bp - 2] \n"    // ST0 = ST0 / 100
         "fsin \n"                   // ST0 = sin(ST0)
-        "fimul word [bp + 6] \n"    // ST0 = ST0 * 100
-        "fist word [bp + 8]"        // result = (int)ST0
+        "fimul word [bp - 2] \n"    // ST0 = ST0 * 100
+        "fist word [bp - 4]"        // result = (int)ST0
         );
 }
 
@@ -60,9 +60,9 @@ fixed cos(fixed x) {
         "fnclex \n"                 // clear previous exceptions
         
         "fild word [bp + 4] \n"     // ST0 = x
-        "fidiv word [bp + 6] \n"    // ST0 = ST0 / 100
+        "fidiv word [bp - 2] \n"    // ST0 = ST0 / 100
         "fcos \n"                   // ST0 = cos(ST0)
-        "fimul word [bp + 6] \n"    // ST0 = ST0 * 100
-        "fist word [bp + 8]"        // result = (int)ST0
+        "fimul word [bp - 2] \n"    // ST0 = ST0 * 100
+        "fist word [bp - 4]"        // result = (int)ST0
         );
 }
