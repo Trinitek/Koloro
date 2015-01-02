@@ -3,6 +3,25 @@
 #include "fixed.h"
 
 /*
+    Calculate the absolute value of the given number
+    
+    @param
+        x - signed number
+    @return
+        absolute value of x
+*/
+short abs(short x) {
+    short result;
+    asm("fninit \n"                 // initialize FPU
+        "fnclex \n"                 // clear previous exceptions
+        
+        "fild word [bp + 4] \n"     // ST0 = x
+        "fabs \n"                   // ST0 = abs(ST0)
+        "fist word [bp - 2] \n"     // result = ST0
+        );
+}
+
+/*
     Calculate the sine of the given angle provided in radians
     
     @param
