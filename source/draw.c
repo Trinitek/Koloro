@@ -67,24 +67,48 @@ void fillRectangle(short x, short y, short width, short height, char c) {
         y2 - ending x coordinate
         color - color of the line
 */
-void drawLine(short x1, short y1, short x2, short y2, char c) {
-    // The difference between the two point's y values.
-    int y = y2 - y1;
-
-    // The difference between the two point's x values.
-    int x = x2 - x1;
-
-    // Iterate through all the x values that the line will be drawn in.
-    // Between x1 (start) and x2 (finish).
-    int i;
-    for (i = x1; i < x2; i++) {
-        // For each x that the line is a function of, determine the y at this point.
-        // Written in the format y = mx + b.
-        //             m|slope * x + b
-        int yAtPoint = (y / x) * i + y1;
-
-        // Set the pixel at i (x) and yAtPoint (y) to color c.
-        setPixel(i, yAtPoint, c);
+void drawLine(short x1, short y1, short x2, short y2, char color) {
+    short dx = x2 - x1;
+    short dy = y2 - y1;
+    short newX;
+    short newY;
+    short absdy = abs(dy);
+    
+    // Iterate along the X axis if the slope is not steep (m <= 1)
+    if (dx >= abs(dy)) {
+        for (newX = 0; newX <= dx; newX++) {
+            // newY = (dy * newX) / dx
+            
+            asm("mov ax, [bp - 4] \n"       // ax = (dy)
+                "mov bx, [bp - 6] \n");     // bx = (newX)
+                
+            asm("imul bx \n");              // dx:ax = (dy * newX)
+                
+            asm("idiv word [bp - 2] \n");   // ax = dx:ax / (dx)
+            
+            asm("mov [bp - 8] , ax \n");    // (newY) = ax
+            
+            putPixel(newX + x1, newY + y1, color);
+        }
+    }
+    
+    // Iterate along the Y axis if the slope is steep (m > 1), including vertical slopes
+    else {
+        for (newY = 0; newY <= absdy; newY++) {
+            // newX = ((dx * newY) / abs(dy));
+            
+            asm("mov ax, [bp - 2] \n"       // ax = (dx)
+                "mov bx, [bp - 8] \n");     // bx = (newY)
+                
+            asm("imul bx \n");              // dx:ax = (dx * newY)
+                
+            asm("idiv word [bp - 10] \n");  // ax = dx:ax / (absdy)
+            
+            asm("mov [bp - 6] , ax \n");    // (newX) = ax
+            
+            if (dy >= 0) putPixel(newX + x1, newY + y1, color);
+            else putPixel(newX + x1, y1 - newY, color);
+        }
     }
 }
 

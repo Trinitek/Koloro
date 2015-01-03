@@ -12,13 +12,6 @@ void main(void) {
     // Set the video mode to VGA 256-color graphics
     setScreenMode(0x13);
     
-    // Put pixels at all four corners of the screen
-    putPixel(0, 0, 15);         // top left
-    putPixel(320-1, 0, 15);     // top right
-    putPixel(320-1, 200-1, 15); // bottom right
-    putPixel(0, 200-1, 15);     // bottom left
-    waitForKey();
-    
     // Fill the screen with boxes
     #define BOXW 80
     #define BOXH 50
@@ -40,8 +33,6 @@ void main(void) {
         }
     }
     
-    waitForKey();
-    
     // Cycle through some different colors
     setPaletteRegister(16, 255, 255, 0);
     setPaletteRegister(17, 0, 255, 255);
@@ -53,18 +44,59 @@ void main(void) {
     setPaletteRegister(23, 64, 64, 128);
     setPaletteRegister(24, 64, 128, 64);
     
+    // Draw some lines
+    
+    drawLine(0, 0, 199, 199, 0);
+    drawLine(0, 199, 199, 0, 0);
+    
+    drawLine(319-199, 0, 319, 199, 0);
+    drawLine(319-199, 199, 319, 0, 0);
+
+    drawLine(200, 0, 250, 199, 0);
+    drawLine(320-200, 0, 200, 199, 0);
+    drawLine(320-200, 199, 200, 0, 0);
+    
+    drawLine(0, 0, 50, 199, 0);
+    drawLine(10, 0, 50, 199, 0);
+    drawLine(50, 0, 50, 199, 0);
+    drawLine(250, 0, 300, 199, 0);
+    
+    drawLine(0, 125, 100, 125, 0);
+    drawLine(55, 50, 55, 150, 0);       // vertical line, top to bottom
+    drawLine(60, 150, 60, 50, 0);       // vertical line, bottom to top
+    drawLine(0, 0, 320-1, 200-1, 0);
+    drawLine(0, 200-1, 320-1, 0, 0);
+    
     waitForKey();
     
-    putChar('A', 30, 60, 19);
-    putChar('B', 36, 60, 20);
-    putChar(0, 42, 60, 22);
+    // Rainbow lines from top left corner
+    for (y = 0; y < 200; y++) {
+        drawLine(50, 0, 319, y, c);
+        c++;
+    }
+    for (x = 319; x >= 0; x--) {
+        drawLine(50, 0, x, 199, c);
+        c++;
+    }
     
-    char printTest[] = "This is a test string!";
+    // Rainbow lines from bottom left corner
+    for (y = 199; y >= 0; y--) {
+        drawLine(50, 199, 319, y, c);
+        c++;
+    }
+    for (x = 319; x >= 0; x--) {
+        drawLine(50, 199, x, 0, c);
+        c++;
+    }
+    
+    waitForKey();
+    
+    /* char printTest[] = "This is a test string!";
     print(&printTest, 20, 20, 0);
     char printTest2[] = "Hello world! ABC XYZ";
     print(&printTest2, 20, 26, 1);
     
-    waitForKey();
+    waitForKey(); */
     
     /*
     
