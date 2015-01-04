@@ -14,18 +14,28 @@
         c - color of the rectangle
 */
 void drawRectangle(short x, short y, short width, short height, char c) {
-        int i;
-        int j;
-        for (i = x; i < width; i++) {
-            for (j = y; j < height; j++) {
-                if(i != x && i != x + width) {
-                    if(j != y && j != y + height) {
-                        setPixel(x, y, c);
-                    }
-                }
-            }
+    int i;
+    int newX;
+    int newY;
+    
+    // Draw horizontal lines
+    newY = y;
+    for (i = 0; i < 2; i++) {
+        for (newX = 0; newX < width; newX++) {
+            setPixel(newX + x, newY, c);
         }
+        newY += height - 1;
     }
+    
+    // Draw vertical lines
+    newX = x;
+    for (i = 0; i < 2; i++) {
+        for (newY = 0; newY < height; newY++) {
+            setPixel(newX, newY + y, c);
+        }
+        newX += width - 1;
+    }
+}
 
 /*
     Draws a rectangle with a filled center.
@@ -38,11 +48,11 @@ void drawRectangle(short x, short y, short width, short height, char c) {
         c - color of the rectangle
  */
 void fillRectangle(short x, short y, short width, short height, char c) {
-    int i;
-    int j;
-    for (i = x; i < width + x; i++) {
-        for (j = y; j < height + y; j++) {
-            setPixel(i, j, c);
+    int newX;
+    int newY;
+    for (newX = x; newX < width + x; newX++) {
+        for (newY = y; newY < height + y; newY++) {
+            setPixel(newX, newY, c);
         }
     }
 }
@@ -57,24 +67,53 @@ void fillRectangle(short x, short y, short width, short height, char c) {
         y2 - ending x coordinate
         color - color of the line
 */
-void drawLine(short x1, short y1, short x2, short y2, char c) {
-    // The difference between the two point's y values.
-    int y = y2 - y1;
-
-    // The difference between the two point's x values.
-    int x = x2 - x1;
-
-    // Iterate through all the x values that the line will be drawn in.
-    // Between x1 (start) and x2 (finish).
-    int i;
-    for (i = x1; i < x2; i++) {
-        // For each x that the line is a function of, determine the y at this point.
-        // Written in the format y = mx + b.
-        //             m|slope * x + b
-        int yAtPoint = (y / x) * i + y1;
-
-        // Set the pixel at i (x) and yAtPoint (y) to color c.
-        setPixel(i, yAtPoint, c);
+void drawLine(short x1, short y1, short x2, short y2, char color) {
+    short dx = x2 - x1;
+    short dy = y2 - y1;
+    short newX;
+    short newY;
+    short absdy = abs(dy);
+    
+    // Iterate along the X axis if the slope is not steep (m <= 1)
+    if (dx >= abs(dy)) {
+        for (newX = 0; newX <= dx; newX++) {
+            // newY = (dy * newX) / dx
+            
+            asm("finit \n");                // initialize FPU
+            
+            asm("fild word [bp - 4] \n"     // push (dy) -> ST1
+                "fild word [bp - 6] \n"     // push (newX) -> ST0
+                "fmulp \n");                // (dy * newX) -> ST1, release ST0
+            
+            asm("fild word [bp - 2] \n"     // push (dx) -> ST0
+                "fdivp \n");                // ((dy * newX) / dx) -> ST1, release ST0
+            
+            asm("fist word [bp - 8] \n");   // (newY) = ST0
+                
+            
+            putPixel(newX + x1, newY + y1, color);
+        }
+    }
+    
+    // Iterate along the Y axis if the slope is steep (m > 1), including vertical slopes
+    else {
+        for (newY = 0; newY <= absdy; newY++) {
+            // newX = ((dx * newY) / abs(dy));
+            
+            asm("finit \n");                // initialize FPU
+            
+            asm("fild word [bp - 2] \n"     // push (dx) -> ST1
+                "fild word [bp - 8] \n"     // push (newY) -> ST0
+                "fmulp \n");                // (dx * newY) -> ST1, release ST0
+            
+            asm("fild word [bp - 10] \n"    // push (dy) -> ST0
+                "fdivp \n");                // ((dx * newY) / absdy) -> ST1, release ST0
+            
+            asm("fist word [bp - 6] \n");   // (newX) = ST0
+            
+            if (dy >= 0) putPixel(newX + x1, newY + y1, color);
+            else putPixel(newX + x1, y1 - newY, color);
+        }
     }
 }
 

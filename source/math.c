@@ -3,6 +3,25 @@
 #include "fixed.h"
 
 /*
+    Calculate the absolute value of the given number
+    
+    @param
+        x - signed number
+    @return
+        absolute value of x
+*/
+short abs(short x) {
+    short result;
+    asm("finit \n"                  // initialize FPU
+        
+        "fild word [bp + 4] \n"     // ST0 = x
+        "fabs \n"                   // ST0 = abs(ST0)
+        "fist word [bp - 2] \n"     // result = ST0
+        );
+    return result;
+}
+
+/*
     Calculate the sine of the given angle provided in radians
     
     @param
@@ -14,15 +33,15 @@
 fixed sin(fixed x) {
     short divisor = 100;
     fixed result;
-    asm("fninit \n"                 // initialize FPU
-        "fnclex \n"                 // clear previous exceptions
+    asm("finit \n"                  // initialize FPU
         
         "fild word [bp + 4] \n"     // ST0 = x
-        "fidiv word [bp + 6] \n"    // ST0 = ST0 / 100
+        "fidiv word [bp - 2] \n"    // ST0 = ST0 / 100
         "fsin \n"                   // ST0 = sin(ST0)
-        "fimul word [bp + 6] \n"    // ST0 = ST0 * 100
-        "fist word [bp + 8]"        // result = (int)ST0
+        "fimul word [bp - 2] \n"    // ST0 = ST0 * 100
+        "fist word [bp - 4]"        // result = (int)ST0
         );
+    return result;
 }
 
 /*
@@ -37,13 +56,13 @@ fixed sin(fixed x) {
 fixed cos(fixed x) {
     short divisor = 100;
     fixed result;
-    asm("fninit \n"                 // initialize FPU
-        "fnclex \n"                 // clear previous exceptions
+    asm("finit \n"                  // initialize FPU
         
         "fild word [bp + 4] \n"     // ST0 = x
-        "fidiv word [bp + 6] \n"    // ST0 = ST0 / 100
+        "fidiv word [bp - 2] \n"    // ST0 = ST0 / 100
         "fcos \n"                   // ST0 = cos(ST0)
-        "fimul word [bp + 6] \n"    // ST0 = ST0 * 100
-        "fist word [bp + 8]"        // result = (int)ST0
+        "fimul word [bp - 2] \n"    // ST0 = ST0 * 100
+        "fist word [bp - 4]"        // result = (int)ST0
         );
+    return result;
 }
