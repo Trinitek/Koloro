@@ -79,14 +79,17 @@ void drawLine(short x1, short y1, short x2, short y2, char color) {
         for (newX = 0; newX <= dx; newX++) {
             // newY = (dy * newX) / dx
             
-            asm("mov ax, [bp - 4] \n"       // ax = (dy)
-                "mov bx, [bp - 6] \n");     // bx = (newX)
-                
-            asm("imul bx \n");              // dx:ax = (dy * newX)
-                
-            asm("idiv word [bp - 2] \n");   // ax = dx:ax / (dx)
+            asm("finit \n");                // initialize FPU
             
-            asm("mov [bp - 8] , ax \n");    // (newY) = ax
+            asm("fild word [bp - 4] \n"     // push (dy) -> ST1
+                "fild word [bp - 6] \n"     // push (newX) -> ST0
+                "fmulp \n");                // (dy * newX) -> ST1, release ST0
+            
+            asm("fild word [bp - 2] \n"     // push (dx) -> ST0
+                "fdivp \n");                // ((dy * newX) / dx) -> ST1, release ST0
+            
+            asm("fist word [bp - 8] \n");   // (newY) = ST0
+                
             
             putPixel(newX + x1, newY + y1, color);
         }
@@ -97,14 +100,16 @@ void drawLine(short x1, short y1, short x2, short y2, char color) {
         for (newY = 0; newY <= absdy; newY++) {
             // newX = ((dx * newY) / abs(dy));
             
-            asm("mov ax, [bp - 2] \n"       // ax = (dx)
-                "mov bx, [bp - 8] \n");     // bx = (newY)
-                
-            asm("imul bx \n");              // dx:ax = (dx * newY)
-                
-            asm("idiv word [bp - 10] \n");  // ax = dx:ax / (absdy)
+            asm("finit \n");                // initialize FPU
             
-            asm("mov [bp - 6] , ax \n");    // (newX) = ax
+            asm("fild word [bp - 2] \n"     // push (dx) -> ST1
+                "fild word [bp - 8] \n"     // push (newY) -> ST0
+                "fmulp \n");                // (dx * newY) -> ST1, release ST0
+            
+            asm("fild word [bp - 10] \n"    // push (dy) -> ST0
+                "fdivp \n");                // ((dx * newY) / absdy) -> ST1, release ST0
+            
+            asm("fist word [bp - 6] \n");   // (newX) = ST0
             
             if (dy >= 0) putPixel(newX + x1, newY + y1, color);
             else putPixel(newX + x1, y1 - newY, color);

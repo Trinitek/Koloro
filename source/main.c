@@ -67,6 +67,8 @@ void main(void) {
     drawLine(0, 0, 320-1, 200-1, 0);
     drawLine(0, 200-1, 320-1, 0, 0);
     
+    drawLine(0, 0, 319, 1, 0);
+    
     waitForKey();
     
     // Rainbow lines from top left corner
