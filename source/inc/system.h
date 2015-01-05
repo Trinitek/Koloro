@@ -3,6 +3,8 @@
 #define PROGRAM_SEG     0x3000
 #define VIDEO_SEG       0xA000
 
+#define FILE_BUFFER_OFS 0x8100
+
 void outb(char port, char data);
 void outw(char port, short data);
 void mempokeb(short segment, short offset, char data);

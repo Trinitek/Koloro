@@ -14,7 +14,7 @@
         true if successful
 */
 bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short size) {
-    short bufferOfs = 32768u + 256;
+    short bufferOfs = FILE_BUFFER_OFS;
     
     // Copy null-terminated filename to the beginning of the buffer
     char c;
@@ -47,7 +47,7 @@ bool saveFile(char *filenameStr_ptr, short sourceSeg, short sourceOfs, short siz
         size of file if successful, 0 otherwise
 */
 short loadFile(char *filenameStr_ptr, short destSeg, short destOfs) {
-    short bufferOfs = 32768u + 256;
+    short bufferOfs = FILE_BUFFER_OFS;
     
     // Copy null-terminated filename to the beginning of the buffer
     char c;
@@ -72,7 +72,7 @@ short loadFile(char *filenameStr_ptr, short destSeg, short destOfs) {
     
     // Copy data from buffer to destination if there was no error
     if (fileSize > 0) {
-        memcopy(OS_SEG, 32768u + 256, destSeg, destOfs, fileSize);
+        memcopy(OS_SEG, FILE_BUFFER_OFS, destSeg, destOfs, fileSize);
     }
     
     return fileSize;
