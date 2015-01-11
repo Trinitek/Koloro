@@ -66,6 +66,13 @@ void main(void) {
     if (stringMatch(&str1, &match)) print(&match, 1, 13, 15);
     else print(&nomatch, 1, 13, 15);
     
+    // Test string copying
+    static char str4[] = "Copy me!";
+    static char str5[9];
+    
+    stringCopy(&str4, &str5);
+    print(&str5, 1, 19, 15);
+    
     waitForKey();
     
     // Set the video mode to 16-color 80x25 text

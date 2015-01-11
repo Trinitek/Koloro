@@ -57,7 +57,7 @@ void stringCopy(char* strSrc, char* strDest) {
     strDest[i + 1] = 0;
     
     // Copy the rest of the string
-    for (; i > 0; i--;) {
+    for (i > 0; i--;) {
         strDest[i] = strSrc[i];
     }
 }
@@ -71,7 +71,7 @@ void stringCopy(char* strSrc, char* strDest) {
 void stringReverse(char* str) {
     short i = stringLength(str);
     
-    for (; i > 0; i--;) {
+    for (i > 0; i--;) {
         //
     }
 }
