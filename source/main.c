@@ -73,6 +73,13 @@ void main(void) {
     stringCopy(&str4, &str5);
     print(&str5, 1, 19, 15);
     
+    // Test string reversing
+    static char str6[] = "Reverse me!";
+    static char str7[12];
+    print(&str6, 1, 25, 15);
+    stringReverse(&str6, &str7);
+    print(&str7, 1, 31, 15);
+    
     waitForKey();
     
     // Set the video mode to 16-color 80x25 text

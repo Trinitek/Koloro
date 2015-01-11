@@ -35,10 +35,9 @@ bool stringMatch(char* str1, char* str2) {
 short stringLength(char* str) {
     short i = 0;
     
-    while (true) {
-        if (str[i]) return i;
+    while (str[i]) {
         i++;
-    }
+    } return i;
 }
 
 /**
@@ -51,28 +50,30 @@ short stringLength(char* str) {
         strDest - destination string, null-terminated
 */
 void stringCopy(char* strSrc, char* strDest) {
-    short i = stringLength(&strSrc);
+    int i = 0;
+    char c;
     
-    // Append null-terminator
-    strDest[i + 1] = 0;
-    
-    // Copy the rest of the string
-    for (i > 0; i--;) {
-        strDest[i] = strSrc[i];
-    }
+    do {
+        c = strSrc[i];
+        strDest[i] = c;
+        i++;
+    } while (c);
 }
 
 /**
     Reverse the specified string
     
     @param
-        str - string to reverse, null-terminated
+        strSrc - string to reverse, null-terminated
+        strDest - string to save reversed strSrc, null-terminated
 */
-void stringReverse(char* str) {
-    short i = stringLength(str);
+void stringReverse(char* strSrc, char* strDest) {
+    short reverseOfs = stringLength(strSrc) - 1;
+    short forwardOfs = 0;
     
-    for (i > 0; i--;) {
-        //
+    for (; reverseOfs >= 0; reverseOfs--) {
+        strDest[forwardOfs] = strSrc[reverseOfs];
+        forwardOfs++;
     }
 }
 
