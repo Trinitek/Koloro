@@ -3,6 +3,7 @@
 #include "screen.h"
 #include "file.h"
 #include "draw.h"
+#include "string.h"
 
 void main(void) {
     // Set the video mode to VGA 256-color graphics

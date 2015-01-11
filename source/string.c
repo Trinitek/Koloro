@@ -42,6 +42,41 @@ short stringLength(char* str) {
 }
 
 /**
+    Copy the first specified string to the second.
+    The two strings must be the same size.
+    Appends a null-terminator to the destination.
+    
+    @param
+        strSrc - source string, null-terminated
+        strDest - destination string, null-terminated
+*/
+void stringCopy(char* strSrc, char* strDest) {
+    short i = stringLength(&strSrc);
+    
+    // Append null-terminator
+    strDest[i + 1] = 0;
+    
+    // Copy the rest of the string
+    for (; i > 0; i--;) {
+        strDest[i] = strSrc[i];
+    }
+}
+
+/**
+    Reverse the specified string
+    
+    @param
+        str - string to reverse, null-terminated
+*/
+void stringReverse(char* str) {
+    short i = stringLength(str);
+    
+    for (; i > 0; i--;) {
+        //
+    }
+}
+
+/**
     Return the string representation of a signed or unsigned short.
     Does not print leading zeroes.
     
