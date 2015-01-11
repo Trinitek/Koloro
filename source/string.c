@@ -25,6 +25,23 @@ bool stringMatch(char* str1, char* str2) {
 }
 
 /**
+    Determine the length of the specified string
+    
+    @param
+        str - string, null-terminated
+    @return
+        length of string
+*/
+short stringLength(char* str) {
+    short i = 0;
+    
+    while (true) {
+        if (str[i]) return i;
+        i++;
+    }
+}
+
+/**
     Return the string representation of a signed or unsigned short.
     Does not print leading zeroes.
     
