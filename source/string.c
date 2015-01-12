@@ -78,14 +78,42 @@ void stringReverse(char* strSrc, char* strDest) {
 }
 
 /**
-    Return the string representation of a signed or unsigned short.
+    Return the string representation of a signed short.
     Does not print leading zeroes.
     
     @param
         n - number to convert
-        s - true if n is signed, false if unsigned
-        buffer - seven character string buffer to write to, including null-terminator
+        str - seven character string buffer to write to, including null-terminator
 */
-void intToString(short n, bool s, char* buffer) {
-    //
+void intToString(short n, char* str) {
+    int i;
+    int digits = 5;
+    int tempN = n;
+    
+    if (n == 0) {
+        str[0] = '0';
+        str[1] = 0;
+    }
+    
+    else {
+        // Determine the number of digits
+        for (i = 10000; i > 0; i /= 10) {
+            if (n / i) break;
+            else digits--;
+        }
+        
+        // Add or substract to get the ASCII representation?
+        if (n < 0) tempN *= -1;
+        
+        // Write digits to string, least significant digits first
+        for (i = digits; i > 0; i--) {
+            str[i] = (tempN % 10) + 48;
+            tempN /= 10;
+        }
+        
+        str[0] = '-';
+        str[digits + 1] = 0;
+    }
+    
+    return;
 }

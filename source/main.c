@@ -41,15 +41,6 @@ void main(void) {
     setPaletteRegister(23, 64, 64, 128);
     setPaletteRegister(24, 64, 128, 64); */
     
-    // Test printing signed and unsigned numbers
-    //static char buffer[7];
-    
-    /* intToString(52, false, &buffer);
-    print(&buffer, 1, 1, 15);
-    
-    intToString(-752, true, &buffer);
-    print(&buffer, 1, 6, 15); */
-    
     // Test string matching
     static char str1[] = "ABCD";
     static char str2[] = "ABCD";
@@ -79,6 +70,17 @@ void main(void) {
     print(&str6, 1, 25, 15);
     stringReverse(&str6, &str7);
     print(&str7, 1, 31, 15);
+    
+    // Test integer to string conversion
+    static char str8[7];
+    intToString(-32767, &str8);
+    print(&str8, 1, 37, 15);
+    intToString(-64, &str8);
+    print(&str8, 1, 43, 15);
+    intToString(-842, &str8);
+    print(&str8, 1, 49, 15);
+    intToString(0, &str8);
+    print(&str8, 1, 55, 15);
     
     waitForKey();
     
