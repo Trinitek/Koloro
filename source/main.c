@@ -71,7 +71,7 @@ void main(void) {
     stringReverse(&str6, &str7);
     print(&str7, 1, 31, 15);
     
-    // Test integer to string conversion
+    // Test signed integer to string conversion
     static char str8[7];
     intToString(-32767, &str8);
     print(&str8, 1, 37, 15);
@@ -81,6 +81,16 @@ void main(void) {
     print(&str8, 1, 49, 15);
     intToString(0, &str8);
     print(&str8, 1, 55, 15);
+    
+    // Test unsigned integer to string conversion
+    uintToString(65535u, &str8);
+    print(&str8, 1, 61, 15);
+    uintToString(0, &str8);
+    print(&str8, 1, 67, 15);
+    uintToString(542, &str8);
+    print(&str8, 1, 73, 15);
+    uintToString(32, &str8);
+    print(&str8, 1, 79, 15);
     
     waitForKey();
     

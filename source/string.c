@@ -117,3 +117,40 @@ void intToString(short n, char* str) {
     
     return;
 }
+
+/**
+    Return the string representation of an unsigned short.
+    Does not print leading zeroes.
+    
+    @param
+        n - number to convert
+        str - seven character string buffer to write to, including null-terminator
+*/
+void uintToString(unsigned short n, char* str) {
+    int i;
+    int digits = 5;
+    unsigned int tempN = n;
+    
+    if (n == 0) {
+        str[0] = '0';
+        str[1] = 0;
+    }
+    
+    else {
+        // Determine the number of digits
+        for (i = 10000; i > 0; i /= 10) {
+            if (n / i) break;
+            else digits--;
+        }
+        
+        // Write digits to string, least significant digits first
+        for (i = digits - 1; i >= 0; i--) {
+            str[i] = (tempN % 10) + 48;
+            tempN /= 10;
+        }
+        
+        str[digits] = 0;
+    }
+    
+    return;
+}
