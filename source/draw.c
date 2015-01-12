@@ -3,7 +3,7 @@
 #include "math.h"
 #include "bool.h"
 
-/*
+/**
     Draws the outline of a rectangle to the screen.
     
     @param
@@ -37,7 +37,7 @@ void drawRectangle(short x, short y, short width, short height, char c) {
     }
 }
 
-/*
+/**
     Draws a rectangle with a filled center.
     
     @param
@@ -57,7 +57,7 @@ void fillRectangle(short x, short y, short width, short height, char c) {
     }
 }
 
-/*
+/**
     Draw a line from point (x1, y1) to point (x2, y2)
     
     @param
@@ -117,7 +117,7 @@ void drawLine(short x1, short y1, short x2, short y2, char color) {
     }
 }
 
-/*
+/**
     Draws a circle with a center at (centerX, centerY) and a radius of radius.
     
     @param
@@ -137,7 +137,7 @@ void drawCircle(short centerX, short centerY, short radius, char color) {
     }
 }
 
-/*
+/**
     Draws a single dot at this point.
     Is a seperate function from setPixel() because this action will need to be
     recorded for the undo function.
@@ -151,7 +151,7 @@ void pencil(short x, short y, char color) {
     setPixel(x, y, color);
 }
 
-/*
+/**
     Function that draws a pixel to the image being worked on.
     Will mutate a value within the current layer.
     
@@ -164,7 +164,7 @@ void setPixel(short x, short y, char color) {
     putPixel(x, y, color);
 }
 
-/*
+/**
     Sets the current value in the current layer as translucent
     
     @param
@@ -175,7 +175,7 @@ void erasePixel(short x, short y) {
     // TODO: this
 }
 
-/*
+/**
     Put a 5x5 font character on the current layer
     
     @param
@@ -183,23 +183,33 @@ void erasePixel(short x, short y) {
         x - x coordinate, top left origin
         y - y coordinate, top left origin
         color - color of character
+    @return
+        width of the character
 */
-void putChar(char c, short x, short y, char color) {
+char putChar(char c, short x, short y, char color) {
     char* glyphOfs = getGlyph(c);
     char byte = 0;
     char i;
     unsigned char pattern = 128u; // 0b10000000
     short xOfs = 0;
     short yOfs = 0;
+    char charWidth = 0;
+    char lineWidth = 0;
     
     for (i = 0; i < 5*5; i++) {
         // Plot pixel only if bit is set
-        if (*(glyphOfs + byte) & pattern) setPixel(x+xOfs, y+yOfs, color);
+        if (*(glyphOfs + byte) & pattern) {
+            setPixel(x+xOfs, y+yOfs, color);
+            lineWidth = xOfs + 1;
+        }
         
         // Maximum of 5 pixels per row
         if (!((i + 1) % 5) && i){
             xOfs = 0;
             yOfs++;
+            
+            if (lineWidth > charWidth) charWidth = lineWidth;
+            lineWidth = 0;
         }
         else xOfs++;
         
@@ -210,9 +220,11 @@ void putChar(char c, short x, short y, char color) {
             pattern = 128u;
         }
     }
+    
+    return charWidth;
 }
 
-/*
+/**
     Put a string of characters on the current layer
     
     @param
@@ -226,9 +238,9 @@ void print(char* stringPtr, short x, short y, char color) {
     while (true) {
         c = *stringPtr;
         if (!c) break;
-        else if (c != ' ') putChar(c, x, y, color);
+        else if (c != ' ') x += putChar(c, x, y, color) + 1;
+        else  x += 6;
         
-        x += 6;
         stringPtr++;
     }
 }
