@@ -19,6 +19,8 @@ short getGlyph(char c) {
         // Symbols
         case '&': return &amper_pxl;
         case '\'': return &apost_pxl;
+        case '*': return &asterisk_pxl;
+        case '@': return &at_pxl;
         case '{': return &brace_l_pxl;
         case '}': return &brace_r_pxl;
         case '[': return &bracket_l_pxl;

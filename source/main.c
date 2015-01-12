@@ -92,8 +92,16 @@ void main(void) {
     uintToString(32, &str8);
     print(&str8, 1, 79, 15);
     
-    uintToString(putChar('.', 50, 50, 14), &str8);
-    print(&str8, 50, 56, 14);
+    static char str9[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    print(&str9, 50, 56, 14);
+    static char str10[] = "The quick brown fox jumped over the lazy dog.";
+    print(&str10, 50, 62, 13);
+    static char str11[] = "0123456789876543210";
+    print(&str11, 50, 68, 12);
+    static char str12[] = "~!@#$%^&*()-_=+[]{}\|;:'\",.<>/?";
+    print(&str12, 50, 74, 11);
+    static char str13[] = "abcdefghijklmnopqrstuvwxyz";
+    print(&str13, 50, 80, 10);
     
     waitForKey();
     
