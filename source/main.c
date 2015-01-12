@@ -75,7 +75,7 @@ void main(void) {
     static char str8[7];
     intToString(-32767, &str8);
     print(&str8, 1, 37, 15);
-    intToString(-64, &str8);
+    intToString(64, &str8);
     print(&str8, 1, 43, 15);
     intToString(-842, &str8);
     print(&str8, 1, 49, 15);
@@ -91,6 +91,9 @@ void main(void) {
     print(&str8, 1, 73, 15);
     uintToString(32, &str8);
     print(&str8, 1, 79, 15);
+    
+    uintToString(putChar('.', 50, 50, 14), &str8);
+    print(&str8, 50, 56, 14);
     
     waitForKey();
     

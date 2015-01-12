@@ -95,6 +95,8 @@ void intToString(short n, char* str) {
         str[1] = 0;
     }
     
+    else if (n > 0) uintToString(n, str);
+    
     else {
         // Determine the number of digits
         for (i = 10000; i > 0; i /= 10) {
