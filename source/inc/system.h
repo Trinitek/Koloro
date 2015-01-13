@@ -9,8 +9,10 @@
 #define PS2_STATUS_PORT     0x64    // Read access to 0x64
 #define PS2_COMMAND_PORT    0x64    // Write access to 0x64
 
-void outb(char port, char data);
-void outw(char port, short data);
+void outb(short port, char data);
+void outw(short port, short data);
+char inb(short port);
+char inw(short port);
 void mempokeb(short segment, short offset, char data);
 void mempokew(short segment, short offset, short data);
 char mempeekb(short segment, short offset);

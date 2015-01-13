@@ -1,23 +1,39 @@
 
-/*
+/**
     Send a byte to the specified I/O port
 */
-void outb(char port, char data) {
+void outb(short port, char data) {
     asm("mov dx, [bp + 4]\n"
         "mov ax, [bp + 6]\n"
         "out dx, al");
 }
 
-/*
+/**
     Send a 16-bit word to the specified I/O port
 */
-void outw(char port, short data) {
+void outw(short port, short data) {
     asm("mov dx, [bp + 4]\n"
         "mov ax, [bp + 6]\n"
         "out dx, ax");
 }
 
-/*
+/**
+    Read a byte from the specified I/O port
+*/
+char inb(short port) {
+    asm("mov dx, [bp + 4]\n"
+        "in al, dx");
+}
+
+/**
+    Read a 16-bit word from the specified I/O port
+*/
+short inw(short port) {
+    asm("mov dx, [bp + 4]\n"
+        "in ax, dx");
+}
+
+/**
     Write a byte to the specified memory location
     
     @param
@@ -35,7 +51,7 @@ void mempokeb(short segment, short offset, char data) {
         "pop es");
 }
 
-/*
+/**
     Write a word to the specified memory location
     
     @param
@@ -53,7 +69,7 @@ void mempokew(short segment, short offset, short data) {
         "pop es");
 }
 
-/*
+/**
     Read a byte from the specified memory location
     
     @param
@@ -72,7 +88,7 @@ char mempeekb(short segment, short offset) {
         "pop ds");
 }
 
-/*
+/**
     Read a word from the specified memory location
     
     @param
@@ -91,7 +107,7 @@ short mempeekw(short segment, short offset) {
         "pop ds");
 }
 
-/*
+/**
     Copy a block of memory to another memory location
     
     @param
