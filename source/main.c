@@ -98,7 +98,7 @@ void main(void) {
     print(&str10, 50, 62, 13);
     static char str11[] = "0123456789876543210";
     print(&str11, 50, 68, 12);
-    static char str12[] = "~!@#$%^&*()-_=+[]{}\|;:'\",.<>/?";
+    static char str12[] = "~!@#$%^&*()-_=+[]{}\\|;:'\",.<>/?";
     print(&str12, 50, 74, 11);
     static char str13[] = "abcdefghijklmnopqrstuvwxyz";
     print(&str13, 50, 80, 10);
